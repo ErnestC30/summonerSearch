@@ -1,19 +1,9 @@
 import { GetServerSideProps } from 'next'
+import { Container } from '@mui/material';
+
+import { SummonerDTO, riotRouter } from '../../../interfaces'; 
 import Profile from '../../../components/Profile'
-
-interface SummonerDTO {
-    accountid: string
-    profileIconId: number
-    revisionDate: number
-    name: string
-    id: string
-    puuid: string 
-    summonerLevel: number
-}
-
-interface riotRouter {
-    [region: string]: string
-}
+import Match from '../../../components/Match'
 
 const NUM_OF_MATCHES = 5
 
@@ -22,7 +12,10 @@ const UserInfo = ({summonerData, arrayOfMatchData}: {summonerData: SummonerDTO, 
     //Render Match components
     return (
         <>
-            <Profile summonerData={summonerData}></Profile>
+            <Container>
+                <Profile summonerData={summonerData}></Profile>
+                <Match summonerData={summonerData} matchData={arrayOfMatchData[2]}></Match>
+            </Container>
         </>
     )
 }
