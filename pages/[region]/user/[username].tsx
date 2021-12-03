@@ -9,12 +9,17 @@ const NUM_OF_MATCHES = 5
 
 const UserInfo = ({summonerData, arrayOfMatchData}: {summonerData: SummonerDTO, arrayOfMatchData: any}) => {
 
+    let matches = arrayOfMatchData.map((match: any, index: number) => {
+        return <Match key={match.metadata.matchId} summonerData={summonerData} matchData={match}></Match>
+    })
+
     //Render Match components
     return (
         <>
             <Container>
                 <Profile summonerData={summonerData}></Profile>
-                <Match summonerData={summonerData} matchData={arrayOfMatchData[2]}></Match>
+                {/* List of matches */}
+                {matches} 
             </Container>
         </>
     )

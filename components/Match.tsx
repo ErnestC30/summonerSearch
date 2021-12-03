@@ -1,6 +1,6 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Typography} from "@mui/material"
-import { isUint8ClampedArray } from "util/types";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Grid, Typography} from "@mui/material"
 
+import { theme } from '../theme'
 import { SummonerDTO } from '../interfaces'; 
 
 function Match({summonerData, matchData}: {summonerData: SummonerDTO, matchData: any}) {
@@ -9,33 +9,51 @@ function Match({summonerData, matchData}: {summonerData: SummonerDTO, matchData:
     const gameDuration = getGameTime(matchData.info.gameDuration)
     const searchedSummonerData = getSearchedSummonerData(summonerData, matchData.info.participants)
     const searchedSummonerItems = getSearchedSummonerItems(searchedSummonerData)
-    console.log(searchedSummonerData)
-    console.log(searchedSummonerItems)
 
     return (
         <>
-            {/* Render different color background if user won or lost. */}
-            <Accordion> 
-                <AccordionSummary>
-                    <Box>
-                        <Box>
-                            {gameDuration}
-                            {searchedSummonerData.win ? 'victory' : 'defeat'}
-                        </Box>
-                        <Box>
-                            {searchedSummonerData.championName}
-                        </Box>
-                        <Box>
-                            {searchedSummonerData.kills} /&nbsp; 
-                            {searchedSummonerData.deaths} /&nbsp;
-                            {searchedSummonerData.assists}
-                        </Box>
-                        <Box>
+            <Accordion sx={{backgroundColor: searchedSummonerData.win ? 'win' : 'lose'}}> 
+                <AccordionSummary >
+                    <Grid container spacing={3}>
+                        <Grid item>
+                            <Typography>{gameDuration}</Typography>
+                            <Typography>{searchedSummonerData.win ? 'Victory' : 'Defeat'}</Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography>{searchedSummonerData.championName}</Typography>
+                            <img width='50px'
+                                 height='50px'
+                                 src={`http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${searchedSummonerData.championName}.png`}/>
+                        </Grid>
+                        <Grid item>
+                            <Typography>
+                                {searchedSummonerData.kills} /&nbsp; 
+                                {searchedSummonerData.deaths} /&nbsp;
+                                {searchedSummonerData.assists}
+                            </Typography>
+                            <Typography>K/D/A: {((searchedSummonerData.kills + searchedSummonerData.assists) / searchedSummonerData.deaths).toFixed(2)}</Typography>
+                        </Grid>
+                        <Grid item sx={{display: 'flex'}}>
                             {searchedSummonerItems.map((item, index) => {
-                                return <img key={index} src={`https://ddragon.leagueoflegends.com/cdn/11.23.1/img/item/${item}.png`}/>
+                                {/* Renders item images or empty placeholder. -> MIGHT NEED TO CHANGE TO GRID FORMAT */}
+                                return item != '0' ? <img key={index} 
+                                            width='30px'
+                                            height='30px'
+                                            src={`https://ddragon.leagueoflegends.com/cdn/11.23.1/img/item/${item}.png`}/>
+                                        : <Box key={index} sx={{display: 'inline', width: '30px', height: '30px', borderStyle: 'solid', borderColor: 'black'}}></Box>
                             })}
-                        </Box>
-                    </Box>
+                        </Grid>
+                        <Grid item>
+                            {/* GRID TO DIVIDE PARTICIPANTS IN 2 GROUPS?*/}
+                            {matchData.info.participants.map((participant: any) => {
+                                return <Typography 
+                                        key={participant.puuid}
+                                        variant='body2'
+                                        >
+                                            {participant.summonerName}</Typography>
+                            })}
+                        </Grid>
+                    </Grid>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography>Hello Again</Typography>

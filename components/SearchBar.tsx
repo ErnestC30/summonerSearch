@@ -87,6 +87,7 @@ function SearchBar({minWidth, fieldLabel }: { minWidth: string, fieldLabel: stri
       />
       <Button
         variant="contained"
+        color="primary"
         sx={{ marginLeft: "5px", height: "50px" }}
         onClick={() => searchUser(regionId, username)}
       >
