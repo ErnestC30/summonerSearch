@@ -12,3 +12,6 @@ export interface riotRouter {
     [region: string]: string
 }
 
+export interface queueDisplay {
+    [queueType: string]: string
+}

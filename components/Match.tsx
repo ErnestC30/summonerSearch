@@ -7,8 +7,8 @@ function Match({
   summonerData,
   matchData,
 }: {
-  summonerData: SummonerDTO;
-  matchData: any;
+  summonerData: SummonerDTO
+  matchData: any
 }) {
   /* Component for detailed information on a single match.  */
 
@@ -27,7 +27,7 @@ function Match({
         sx={{
           backgroundColor: searchedSummonerData.win ? "win" : "lose",
           margin: "5px",
-          minWidth: "850px",
+          minWidth: "875px",
         }}
       >
         <AccordionSummary>
@@ -77,9 +77,6 @@ function Match({
             </Grid>
             <Grid item xs sx={{ display: "flex" }}>
               {searchedSummonerItems.map((item, index) => {
-                {
-                  /* Renders item images or empty placeholder. -> MIGHT NEED TO CHANGE TO GRID FORMAT */
-                }
                 return item != "0" ? (
                   <img
                     key={index}
@@ -104,28 +101,26 @@ function Match({
               })}
             </Grid>
             <Grid item xs>
-              <Grid container direction="column" alignItems='right'>
+              <Grid container direction="column" alignItems="right">
                 {teamOneParticipants.map((participant: any) => {
                   return (
-                    <>
-                      <Typography
-                        key={participant.puuid}
-                        variant="body2"
-                        sx={{
-                          verticalAlign: "center",
-                          display: "inline-flex",
-                          margin: "1px",
-                        }}
-                      >
-                        <img
-                          src={`http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${participant.championName}.png`}
-                          height="20px"
-                          width="20px"
-                        />
-                        &nbsp;
-                        {displaySummonerName(participant.summonerName)}
-                      </Typography>
-                    </>
+                    <Typography
+                      key={participant.puuid}
+                      variant="body2"
+                      sx={{
+                        verticalAlign: "center",
+                        display: "inline-flex",
+                        margin: "1px",
+                      }}
+                    >
+                      <img
+                        src={`http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${participant.championName}.png`}
+                        height="20px"
+                        width="20px"
+                      />
+                      &nbsp;
+                      {displaySummonerName(participant.summonerName)}
+                    </Typography>
                   );
                 })}
               </Grid>

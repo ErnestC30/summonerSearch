@@ -7,7 +7,7 @@ import Match from '../../../components/Match'
 
 const NUM_OF_MATCHES = 5
 
-const UserInfo = ({summonerData, arrayOfMatchData}: {summonerData: SummonerDTO, arrayOfMatchData: any}) => {
+const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData}: {summonerData: SummonerDTO, arrayOfMatchData: any, arrayOfLeaguesData: any}) => {
 
     let matches = arrayOfMatchData.map((match: any, index: number) => {
         return <Match key={match.metadata.matchId} summonerData={summonerData} matchData={match}></Match>
@@ -17,7 +17,7 @@ const UserInfo = ({summonerData, arrayOfMatchData}: {summonerData: SummonerDTO, 
     return (
         <>
             <Container>
-                <Profile summonerData={summonerData}></Profile>
+                <Profile summonerData={summonerData} arrayOfLeaguesData={arrayOfLeaguesData}></Profile>
                 {/* List of matches */}
                 {matches} 
             </Container>
@@ -66,7 +66,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         arrayOfMatchData.push(matchData)
     }
 
-    console.log(summonerData)
+    const summonerId = summonerData.id
+    let leaguesResponse = await fetch(`https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerId}?api_key=${riotKey}`)
+    let arrayOfLeaguesData = await leaguesResponse.json()
+
+    //console.log(summonerData)
     //console.log(matchesIdData)
     //console.log(arrayOfMatchData[0])
     
@@ -74,6 +78,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         props: {
             summonerData,
             arrayOfMatchData,
+            arrayOfLeaguesData,
         },
     }
 }
