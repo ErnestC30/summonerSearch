@@ -2,7 +2,6 @@ import { Box, Grid, Typography } from "@mui/material"
 import PlayerLeague from "./PlayerLeague"
 
 function Profile({ summonerData, arrayOfLeaguesData }: { summonerData: any, arrayOfLeaguesData: any }) {
-  console.log(arrayOfLeaguesData);
 
   function renderIfLeagueExists(arrayOfLeaguesData: any, leagueType: any): any {
     /* Returns a PlayerLeague component for the league if it exists. */

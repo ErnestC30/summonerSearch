@@ -15,3 +15,7 @@ export interface riotRouter {
 export interface queueDisplay {
     [queueType: string]: string
 }
+
+export interface spellData {
+    [stat: string] : any
+}

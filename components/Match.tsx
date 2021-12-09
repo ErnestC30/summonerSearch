@@ -78,6 +78,7 @@ function Match({
               </Grid>
             </Grid>
             <Grid item xs={4}>
+              {/* Grid of items of the searched user. */}
               <Grid container spacing={0.25}>
                 {searchedSummonerItems.map((item, index) => {
                   return item != "0" ? (

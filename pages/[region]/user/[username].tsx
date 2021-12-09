@@ -45,7 +45,8 @@ function getRouter(region: string | string[] | undefined): string {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const riotKey = process.env.RIOT_API
 
-    /* NEED TO HANDLE ERRORS */
+    /* NEED TO HANDLE ERRORS - IF DATA CANNOT BE FETCHED*/
+
     const {username, region} = context.query
     const router = getRouter(region)
 
