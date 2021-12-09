@@ -1,5 +1,6 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Grid, Typography} from "@mui/material"
 
+import MatchDetails from "./MatchDetails";
 import { theme } from '../theme'
 import { SummonerDTO } from '../interfaces'; 
 
@@ -27,12 +28,13 @@ function Match({
         sx={{
           backgroundColor: searchedSummonerData.win ? "win" : "lose",
           margin: "5px",
-          minWidth: "875px",
+          minWidth: "933px",
         }}
       >
+        {/* Match overview component */}
         <AccordionSummary>
-          <Grid container spacing={3} alignItems="center">
-            <Grid item xs>
+          <Grid container columns={15} spacing={3} alignItems="center">
+            <Grid item xs={2}>
               <Typography variant="body2" align="center">
                 {gameDuration}
               </Typography>
@@ -40,7 +42,7 @@ function Match({
                 {searchedSummonerData.win ? "Victory" : "Defeat"}
               </Typography>
             </Grid>
-            <Grid item xs>
+            <Grid item xs={1}>
               <Grid container direction="column" alignItems="center">
                 <Grid item>
                   <Typography>{searchedSummonerData.championName}</Typography>
@@ -54,7 +56,7 @@ function Match({
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs>
+            <Grid item xs={2}>
               <Grid container direction="column" alignItems="center">
                 <Grid item>
                   <Typography>
@@ -64,8 +66,8 @@ function Match({
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography>
-                    K/D/A:{" "}
+                  <Typography variant="body2">
+                    K/D/A:
                     {(
                       (searchedSummonerData.kills +
                         searchedSummonerData.assists) /
@@ -75,30 +77,33 @@ function Match({
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs sx={{ display: "flex" }}>
-              {searchedSummonerItems.map((item, index) => {
-                return item != "0" ? (
-                  <img
-                    key={index}
-                    width="30px"
-                    height="30px"
-                    src={`https://ddragon.leagueoflegends.com/cdn/11.23.1/img/item/${item}.png`}
-                  />
-                ) : (
-                  <Box
-                    key={index}
-                    sx={{
-                      display: "inline",
-                      width: "30px",
-                      height: "30px",
-                      borderStyle: "solid",
-                      opacity: "70%",
-                      borderColor: "#e3e3e3",
-                      backgroundColor: "#ededed",
-                    }}
-                  ></Box>
-                );
-              })}
+            <Grid item xs={4}>
+              <Grid container spacing={0.25}>
+                {searchedSummonerItems.map((item, index) => {
+                  return item != "0" ? (
+                    <Grid item key={index}> 
+                      <img
+                        width="30px"
+                        height="30px"
+                        src={`https://ddragon.leagueoflegends.com/cdn/11.23.1/img/item/${item}.png`}
+                      />
+                    </Grid>
+                  ) : (
+                    <Grid item key={index}>
+                      <Box
+                        sx={{
+                          width: "30px",
+                          height: "30px",
+                          borderStyle: "solid",
+                          opacity: "70%",
+                          borderColor: "#e3e3e3",
+                          backgroundColor: "#ededed",
+                        }}
+                      />
+                    </Grid>
+                  );
+                })}
+              </Grid>
             </Grid>
             <Grid item xs>
               <Grid container direction="column" alignItems="right">
@@ -152,8 +157,9 @@ function Match({
             </Grid>
           </Grid>
         </AccordionSummary>
+        {/* Match detail component */}
         <AccordionDetails>
-          <Typography>Hello Again</Typography>
+          <MatchDetails matchData={matchData} searchedSummonerData={searchedSummonerData}></MatchDetails>
         </AccordionDetails>
       </Accordion>
     </>
@@ -176,7 +182,6 @@ function getSearchedSummonerData(summonerData: SummonerDTO, participants: any): 
     })
     return searchedSummoner
 }
-
 
 function getSearchedSummonerItems(searchedSummonerData: any): Array<string> {
     /* Return an array of strings containing item IDs or '0' for no item. */

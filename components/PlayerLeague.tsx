@@ -11,9 +11,13 @@ function PlayerLeague({leagueInfo}: {leagueInfo: any}) {
         'RANKED_FLEX_SR': 'Ranked Flex'
     }
 
+    function displayLeagueTier(tier: string, rank: string): string {
+        return `${tier.charAt(0)}${tier.slice(1).toLowerCase()} ${rank}` 
+    }
+
     return (
         <>
-            <Grid container>
+            <Grid container spacing={1}>
                 <Grid item>
                     {/* image */}
                     <Image src={`/Emblem_${leagueInfo.tier}.png`} width='75px' height='75px'/>
@@ -21,10 +25,10 @@ function PlayerLeague({leagueInfo}: {leagueInfo: any}) {
                 <Grid item>
                     <Grid container direction='column'>
                         {/* info */}
-                        <Typography>{queueDisplay[leagueInfo.queueType]}</Typography>
-                        <Typography>LP: {leagueInfo.leaguePoints}</Typography>
-                        <Typography>Wins: {leagueInfo.wins}</Typography>
-                        <Typography>Losses: {leagueInfo.losses}</Typography>
+                        <Typography variant='body2'>{queueDisplay[leagueInfo.queueType]}</Typography>
+                        <Typography variant='body2'>{displayLeagueTier(leagueInfo.tier, leagueInfo.rank)}</Typography>
+                        <Typography variant='body2'>LP: {leagueInfo.leaguePoints}</Typography>
+                        <Typography variant='body2'>W/L: {leagueInfo.wins}/{leagueInfo.losses}</Typography>
                     </Grid>
                 </Grid>
             </Grid>
