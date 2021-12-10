@@ -13,32 +13,32 @@ function MatchDetails({matchData, searchedSummonerData}: {matchData: any, search
 
     return (
       <>
-        <Grid container direction="column">
+        <Grid container direction="column" sx={{padding: '10px', borderStyle: 'solid', borderColor: 'black'}}>
           <Grid item>
             {/* Labels */}
-            <Grid container spacing={2}>
-              <Grid item xs sx={{ display: "flex" }}>
+            <Grid container columns={17} justifyContent="space-evenly" alignItems='center'>
+              <Grid item xs={4} sx={{ display: "flex" }}>
                 <Typography fontWeight="fontWeightBold">
                   {searchedSummonerData.win ? "Victory" : "Defeat"} -&nbsp;
                 </Typography>
                 <Typography fontWeight="fontWeightBold">
-                  {searchedSummonerTeamId == 100 ? "Blue Team" : "Red team"}
+                  {searchedSummonerTeamId == 100 ? "Blue Team" : "Red Team"}
                 </Typography>
               </Grid>
-              <Grid item xs>
-                <Typography fontWeight="fontWeightBold">KDA</Typography>
+              <Grid item xs={2}>
+                <Typography fontWeight="fontWeightBold" align='center'>KDA</Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography fontWeight="fontWeightBold" align='center'>Damage</Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography fontWeight="fontWeightBold" align='center'>CS</Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography fontWeight="fontWeightBold" align='center'>Gold Earned</Typography>
               </Grid>
               <Grid item xs>
-                <Typography fontWeight="fontWeightBold">Damage</Typography>
-              </Grid>
-              <Grid item xs>
-                <Typography fontWeight="fontWeightBold">CS</Typography>
-              </Grid>
-              <Grid item xs>
-                <Typography fontWeight="fontWeightBold">Gold Earned</Typography>
-              </Grid>
-              <Grid item xs>
-                <Typography fontWeight="fontWeightBold">Items</Typography>
+                <Typography fontWeight="fontWeightBold" align='center'>Items</Typography>
               </Grid>
             </Grid>
             {/* Displays the details searched summoner's team */}
@@ -53,8 +53,8 @@ function MatchDetails({matchData, searchedSummonerData}: {matchData: any, search
               })}
             </Grid>
             {/* Displays stat comparisons between the two teams*/}
-            <Grid item>
-              <Grid container spacing={3}>
+            <Grid item sx={{marginTop: '15px', marginBottom: '10px', backgroundColor: '#CECECE'}}>
+              <Grid container columnSpacing={2} alignItems='center' justifyContent='center'>
                 {teamStats.map((stat: any) => {
                   return (
                     <Grid item>
@@ -66,6 +66,32 @@ function MatchDetails({matchData, searchedSummonerData}: {matchData: any, search
                     </Grid>
                   );
                 })}
+              </Grid>
+            </Grid>
+            {/* Labels */}
+            <Grid container columns={17} justifyContent="space-evenly" alignItems='center'>
+              <Grid item xs={4} sx={{ display: "flex" }}>
+                <Typography fontWeight="fontWeightBold">
+                  {searchedSummonerData.win ? "Defeat" : "Victory"} -&nbsp;
+                </Typography>
+                <Typography fontWeight="fontWeightBold">
+                  {searchedSummonerTeamId == 100 ? "Red Team" : "Blue Team"}
+                </Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography fontWeight="fontWeightBold" align='center'>KDA</Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography fontWeight="fontWeightBold" align='center'>Damage</Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography fontWeight="fontWeightBold" align='center'>CS</Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography fontWeight="fontWeightBold" align='center'>Gold Earned</Typography>
+              </Grid>
+              <Grid item xs>
+                <Typography fontWeight="fontWeightBold" align='center'>Items</Typography>
               </Grid>
             </Grid>
             {/* Displays the details for the opponent team */}

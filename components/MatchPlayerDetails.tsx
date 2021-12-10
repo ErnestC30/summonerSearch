@@ -11,11 +11,12 @@ function MatchPlayerDetails({ participant }: { participant: any }) {
 
   return (
     <>
-      <Grid item>
-        <Grid container spacing={2} alignItems='center'>
+    <Grid item sx={{maxHeight: '60px'}}>
+        <Grid container columns={17} spacing={1} alignItems='center'>
           {/* Participant champion, summoner spells, and name. */}
-          <Grid item>
-            <Grid container spacing={1}>
+          <Grid item xs={4}> 
+            <Box>
+            <Grid container columnSpacing={1} alignItems='center'>
               <Grid item>
                 <Badge
                   badgeContent={participant.champLevel}
@@ -70,19 +71,20 @@ function MatchPlayerDetails({ participant }: { participant: any }) {
                 </Box>
               </Grid>
               <Grid item>
-                <Typography>{participant.summonerName}</Typography>
+                <Typography align='center'>{participant.summonerName}</Typography>
               </Grid>
             </Grid>
+            </Box>
           </Grid>
           {/* KDA */}
-          <Grid item>
+          <Grid item xs={2}>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <Typography>
+              <Typography align='center'>
                 {participant.kills} /&nbsp;
                 {participant.deaths} /&nbsp;
                 {participant.assists}
               </Typography>
-              <Typography>
+              <Typography variant='body2' align='center'>
                 KDA:
                 {(
                   (participant.kills + participant.assists) /
@@ -91,21 +93,21 @@ function MatchPlayerDetails({ participant }: { participant: any }) {
               </Typography>
             </Box>
           </Grid>
-          <Grid item>
-            <Typography>{participant.totalDamageDealtToChampions}</Typography>
+          <Grid item xs={2}>
+            <Typography align='center'>{participant.totalDamageDealtToChampions}</Typography>
           </Grid>
-          <Grid item>
-            <Typography>
+          <Grid item xs={2}>
+            <Typography align='center'>
               {participant.totalMinionsKilled +
                 participant.neutralMinionsKilled}
             </Typography>
           </Grid>
-          <Grid item>
-            <Typography>{participant.goldEarned}</Typography>
+          <Grid item xs={2}>
+            <Typography align='center'>{participant.goldEarned}</Typography>
           </Grid>
           {/* Participant's items */}
-          <Grid item>
-            <Grid container spacing={0.25}>
+          <Grid item xs>
+            <Grid container spacing={0.25} justifyContent='center'>
               {participantItems.map((item, index) => {
                 return item != "0" ? (
                   <Grid item key={index}>
@@ -131,9 +133,9 @@ function MatchPlayerDetails({ participant }: { participant: any }) {
                 );
               })}
             </Grid>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
     </>
   );
 }
