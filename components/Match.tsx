@@ -159,7 +159,7 @@ function Match({
           </Grid>
         </AccordionSummary>
         {/* Match detail component */}
-        <AccordionDetails sx={{backgroundColor: searchedSummonerData.win ? "winBG" : "loseBG"}}>
+        <AccordionDetails sx={{backgroundColor: searchedSummonerData.win ? "winBG" : "loseBG", padding: '0px'}}>
           <MatchDetails matchData={matchData} searchedSummonerData={searchedSummonerData}></MatchDetails>
         </AccordionDetails>
       </Accordion>

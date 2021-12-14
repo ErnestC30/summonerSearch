@@ -11,7 +11,7 @@ function MatchPlayerDetails({ participant }: { participant: any }) {
 
   return (
     <>
-    <Grid item sx={{maxHeight: '60px'}}>
+    <Grid item sx={{maxHeight: '50px'}}>
         <Grid container columns={17} spacing={1} alignItems='center'>
           {/* Participant champion, summoner spells, and name. */}
           <Grid item xs={4}> 

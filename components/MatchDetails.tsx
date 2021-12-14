@@ -13,10 +13,10 @@ function MatchDetails({matchData, searchedSummonerData}: {matchData: any, search
 
     return (
       <>
-        <Grid container direction="column" sx={{padding: '10px', borderStyle: 'solid', borderColor: 'black'}}>
-          <Grid item>
+        <Grid container direction="column">
+          <Grid item sx={{padding: '20px'}}>
             {/* Labels */}
-            <Grid container columns={17} justifyContent="space-evenly" alignItems='center'>
+            <Grid container columns={17} justifyContent="space-evenly" alignItems='center' sx={{marginBottom: '10px'}}>
               <Grid item xs={4} sx={{ display: "flex" }}>
                 <Typography fontWeight="fontWeightBold">
                   {searchedSummonerData.win ? "Victory" : "Defeat"} -&nbsp;
@@ -53,7 +53,7 @@ function MatchDetails({matchData, searchedSummonerData}: {matchData: any, search
               })}
             </Grid>
             {/* Displays stat comparisons between the two teams*/}
-            <Grid item sx={{marginTop: '15px', marginBottom: '10px', backgroundColor: '#CECECE'}}>
+            <Grid item sx={{marginTop: '10px', marginBottom: '10px', marginLeft: '-20px', padding: '5px', backgroundColor: 'rgba(252, 252, 252, 0.4)', width: `calc(100% + 40px)`}}>
               <Grid container columnSpacing={2} alignItems='center' justifyContent='center'>
                 {teamStats.map((stat: any) => {
                   return (
@@ -69,7 +69,7 @@ function MatchDetails({matchData, searchedSummonerData}: {matchData: any, search
               </Grid>
             </Grid>
             {/* Labels */}
-            <Grid container columns={17} justifyContent="space-evenly" alignItems='center'>
+            <Grid container columns={17} justifyContent="space-evenly" alignItems='center' sx={{marginBottom: '10px'}}>
               <Grid item xs={4} sx={{ display: "flex" }}>
                 <Typography fontWeight="fontWeightBold">
                   {searchedSummonerData.win ? "Defeat" : "Victory"} -&nbsp;
