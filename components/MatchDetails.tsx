@@ -45,19 +45,19 @@ function MatchDetails({matchData, searchedSummonerData}: {matchData: any, search
             <Grid container direction="column">
               {usersTeamParticipants.map((participant: any) => {
                 return (
-                  <MatchPlayerDetails
-                    key={participant.puuid}
-                    participant={participant}
-                  />
+                    <MatchPlayerDetails
+                      key={participant.puuid}
+                      participant={participant}
+                    />
                 );
               })}
             </Grid>
             {/* Displays stat comparisons between the two teams*/}
             <Grid item sx={{marginTop: '10px', marginBottom: '10px', marginLeft: '-20px', padding: '5px', backgroundColor: 'rgba(252, 252, 252, 0.4)', width: `calc(100% + 40px)`}}>
               <Grid container columnSpacing={2} alignItems='center' justifyContent='center'>
-                {teamStats.map((stat: any) => {
+                {teamStats.map((stat: any, index) => {
                   return (
-                    <Grid item>
+                    <Grid item key={index}>
                       <Box sx={{display: 'flex', flexDirection:'column', alignItems: 'center'}}>
                         <Typography fontWeight="fontWeightBold">{stat.name}</Typography>
                         <Typography>{stat.searchedUserTeamValue}</Typography>

@@ -2,7 +2,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, Grid, Typography} f
 
 import MatchDetails from "./MatchDetails";
 import { theme } from '../theme'
-import { SummonerDTO } from '../interfaces'; 
+import { queueDisplay, SummonerDTO } from '../interfaces'; 
 
 function Match({
   summonerData,
@@ -35,6 +35,7 @@ function Match({
         <AccordionSummary>
           <Grid container columns={15} spacing={3} alignItems="center">
             <Grid item xs={2}>
+              <Typography variant="body2" align="center">{getQueueType(matchData.info.queueId)}</Typography>
               <Typography variant="body2" align="center">
                 {gameDuration}
               </Typography>
@@ -191,6 +192,19 @@ function getSearchedSummonerItems(searchedSummonerData: any): Array<string> {
         itemArray.push(searchedSummonerData[`item${i}`].toString())
     }
     return itemArray
+}
+
+function getQueueType(queueId: number): string {
+  /* Return a string detailing the type of match based on the queueId*/
+  const stringQueueId = queueId.toString()
+  const queueDict: queueDisplay = {
+    '400': 'Normals Draft',
+    '420': 'Ranked Solos',
+    '430': 'Normals Blind',
+    '440': 'Ranked Flex',
+    '450': 'ARAM',
+  }
+  return queueDict[stringQueueId]
 }
 
 function displaySummonerName(name: string): string {

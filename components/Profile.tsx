@@ -3,16 +3,6 @@ import PlayerLeague from "./PlayerLeague"
 
 function Profile({ summonerData, arrayOfLeaguesData }: { summonerData: any, arrayOfLeaguesData: any }) {
 
-  function renderIfLeagueExists(arrayOfLeaguesData: any, leagueType: any): any {
-    /* Returns a PlayerLeague component for the league if it exists. */
-    let leagueInfo = arrayOfLeaguesData.find((league: any) => 
-      league.queueType == leagueType
-    )
-    return leagueInfo ? <PlayerLeague leagueInfo={leagueInfo}/> : null
-  }
-  
-
-
   return (
     <Grid container spacing={2} alignItems='center' sx={{ backgroundColor: "#a7ddeb" }}>
       <Grid item position="relative">
@@ -45,3 +35,12 @@ function Profile({ summonerData, arrayOfLeaguesData }: { summonerData: any, arra
 }
 
 export default Profile 
+
+function renderIfLeagueExists(arrayOfLeaguesData: any, leagueType: any): any {
+  /* Returns a PlayerLeague component for the league if it exists. */
+  let leagueInfo = arrayOfLeaguesData.find((league: any) => 
+    league.queueType == leagueType
+  )
+  return leagueInfo ? <PlayerLeague leagueInfo={leagueInfo}/> : null
+}
+

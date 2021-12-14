@@ -1,13 +1,15 @@
+import React from "react";
 import { GetServerSideProps } from 'next'
 import { Container } from '@mui/material';
 
+import { RegionContext } from "../../../RegionContext";
 import { SummonerDTO, riotRouter } from '../../../interfaces'; 
 import Profile from '../../../components/Profile'
 import Match from '../../../components/Match'
 
 const NUM_OF_MATCHES = 5
 
-const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData}: {summonerData: SummonerDTO, arrayOfMatchData: any, arrayOfLeaguesData: any}) => {
+const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: {summonerData: SummonerDTO, arrayOfMatchData: any, arrayOfLeaguesData: any, region: string}) => {
 
     let matches = arrayOfMatchData.map((match: any, index: number) => {
         return <Match key={match.metadata.matchId} summonerData={summonerData} matchData={match}></Match>
@@ -16,11 +18,13 @@ const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData}: {summone
     //Render Match components
     return (
         <>
-            <Container>
-                <Profile summonerData={summonerData} arrayOfLeaguesData={arrayOfLeaguesData}></Profile>
-                {/* List of matches */}
-                {matches} 
-            </Container>
+            <RegionContext.Provider value={region}>
+                <Container>
+                    <Profile summonerData={summonerData} arrayOfLeaguesData={arrayOfLeaguesData}></Profile>
+                    {/* List of matches */}
+                    {matches} 
+                </Container>
+            </RegionContext.Provider>
         </>
     )
 }
@@ -46,6 +50,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const riotKey = process.env.RIOT_API
 
     /* NEED TO HANDLE ERRORS - IF DATA CANNOT BE FETCHED*/
+    /* HANDLE FETCHING OF CHINESE/KOREAN CHARACTERS?? */
 
     const {username, region} = context.query
     const router = getRouter(region)
@@ -80,6 +85,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             summonerData,
             arrayOfMatchData,
             arrayOfLeaguesData,
+            region,
         },
     }
 }
