@@ -15,7 +15,7 @@ function MatchPlayerDetails({ participant }: { participant: any }) {
     <>
       <Grid item sx={{ maxHeight: "50px" }}>
         <Grid container columns={17} spacing={1} alignItems="center">
-          {/* Participant champion, summoner spells, and name. */}
+          {/* Participant's champion, summoner spells, and name. */}
           <Grid item xs={4}>
             <Box>
               <Grid container columnSpacing={1} alignItems="center">

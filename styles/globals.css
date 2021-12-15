@@ -2,6 +2,12 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+  background-color: #f5f8ff;
+  margin: 0px;
+}
+
 .searchBar {
   width: 60%; 
   min-width: 300px;

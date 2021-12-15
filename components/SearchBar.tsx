@@ -9,7 +9,7 @@ interface Region {
   regionName: string
 }
 
-function SearchBar({minWidth, fieldLabel }: { minWidth: string, fieldLabel: string }) {
+function SearchBar({ width, minWidth, addLabel, fieldLabel, buttonSize="medium" }: { width: string, minWidth: string, addLabel: boolean, fieldLabel: string, buttonSize: "small" | "medium" }) {
   /* Search Bar component to view a user's profile */
   const [username, setUsername] = useState<string>("");
   const [regionId, setRegionId] = useState<string>(DEFAULT_REGION);
@@ -31,31 +31,22 @@ function SearchBar({minWidth, fieldLabel }: { minWidth: string, fieldLabel: stri
     setRegionId(e.target.value);
   }
 
-  function displayRegion(regionId: string, regionMap: Array<Region>): string {
-    /* Displays the regionId of the selected region */
-    let region = regionMap.find((region) => region.regionId == regionId);
-    return region ? region.regionId : "";
-  }
-
-  function searchUser(region: string, username: string) {
-    /* Redirects to page displaying user information*/
-    Router.push(`/${region}/user/${username}`);
-  }
-
   return (
-    <Box display="flex" sx={{width: '70%', minWidth: minWidth}}>
+    <Box display="flex" sx={{width: width, minWidth: minWidth, alignItems: 'center', backgroundColor: 'inherit'}}>
       <TextField
         id="summoner-search-field"
-        label={fieldLabel}
         name="username"
         value={username}
         fullWidth
+        label={addLabel ? fieldLabel : ''}
+        placeholder={fieldLabel}
         onChange={updateName}
         onKeyPress={(e) => {
           if (e.key === "Enter") {
             searchUser(regionId, username);
           }
         }}
+        sx={{backgroundColor: 'white', borderRadius: 1}}
         InputProps={{
           endAdornment: (
             <FormControl
@@ -88,6 +79,7 @@ function SearchBar({minWidth, fieldLabel }: { minWidth: string, fieldLabel: stri
       <Button
         variant="contained"
         color="primary"
+        size={buttonSize}
         sx={{ marginLeft: "5px", height: "50px" }}
         onClick={() => searchUser(regionId, username)}
       >
@@ -98,3 +90,15 @@ function SearchBar({minWidth, fieldLabel }: { minWidth: string, fieldLabel: stri
 }
 
 export default SearchBar
+
+
+function displayRegion(regionId: string, regionMap: Array<Region>): string {
+  /* Displays the regionId of the selected region */
+  let region = regionMap.find((region) => region.regionId == regionId);
+  return region ? region.regionId : "";
+}
+
+function searchUser(region: string, username: string) {
+  /* Redirects to page displaying user information*/
+  Router.push(`/${region}/user/${username}`);
+}

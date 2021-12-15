@@ -69,7 +69,7 @@ function MatchDetails({matchData, searchedSummonerData}: {matchData: any, search
               </Grid>
             </Grid>
             {/* Labels */}
-            <Grid container columns={17} justifyContent="space-evenly" alignItems='center' sx={{marginBottom: '10px'}}>
+            <Grid container columns={17} justifyContent="space-evenly" alignItems='center' sx={{marginTop: '20px' ,marginBottom: '10px'}}>
               <Grid item xs={4} sx={{ display: "flex" }}>
                 <Typography fontWeight="fontWeightBold">
                   {searchedSummonerData.win ? "Defeat" : "Victory"} -&nbsp;

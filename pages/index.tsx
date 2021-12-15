@@ -18,7 +18,7 @@ const Home: NextPage = (riotKey) => {
           minHeight="70vh"
         >
           <Typography variant='h4'>Summoner Search</Typography>
-          <SearchBar minWidth='500px' fieldLabel="Enter summoner name to search"/>     
+          <SearchBar width='70%' minWidth='500px' buttonSize='medium' addLabel={true} fieldLabel="Enter summoner name to search"/>     
        </Box>
       </Container>
     </>
