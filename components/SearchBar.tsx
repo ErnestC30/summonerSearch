@@ -46,7 +46,7 @@ function SearchBar({ width, minWidth, addLabel, fieldLabel, buttonSize="medium" 
             searchUser(regionId, username);
           }
         }}
-        sx={{backgroundColor: 'white', borderRadius: 1}}
+        sx={{backgroundColor: 'white', borderRadius: 1, paddingRight: 0}}
         InputProps={{
           endAdornment: (
             <FormControl

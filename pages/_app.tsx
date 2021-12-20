@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
     <ThemeProvider theme={theme}>
-      <NavBar></NavBar>
+      <NavBar/>
       <Component {...pageProps} />
     </ThemeProvider>
   </>

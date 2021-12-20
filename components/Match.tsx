@@ -1,10 +1,12 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Grid, Typography} from "@mui/material"
 
+import { displaySummonerName, getChampionName, getGameTime, getSearchedSummonerData, getParticipantItems, getQueueType } from "../utilities/matchFunctions";
 import MatchDetails from "./MatchDetails";
 import { theme } from '../theme'
-import { queueDisplay, SummonerDTO } from '../interfaces'; 
+import { SummonerDTO } from '../interfaces'; 
 
-function Match({
+
+export default function Match({
   summonerData,
   matchData,
 }: {
@@ -13,14 +15,17 @@ function Match({
 }) {
   /* Component for detailed information on a single match.  */
 
+  const dataDragonVersion = process.env.dataDragonVersion
   const gameDuration = getGameTime(matchData.info.gameDuration);
   const searchedSummonerData = getSearchedSummonerData(
     summonerData,
     matchData.info.participants
   );
-  const searchedSummonerItems = getSearchedSummonerItems(searchedSummonerData);
+  const searchedSummonerItems = getParticipantItems(searchedSummonerData);
   const teamOneParticipants = matchData.info.participants.slice(0, 5);
   const teamTwoParticipants = matchData.info.participants.slice(5, 10);
+
+  console.log(dataDragonVersion)
 
   return (
     <>
@@ -121,7 +126,7 @@ function Match({
                       }}
                     >
                       <img
-                        src={`http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${participant.championName}.png`}
+                        src={`http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${getChampionName(participant.championName)}.png`}
                         height="20px"
                         width="20px"
                       />
@@ -167,52 +172,3 @@ function Match({
     </>
   );
 } 
-
-export default Match 
-
-function getGameTime(timeInSeconds: number): string {
-    /* Returns the game duration in string format. */
-    let minutes = Math.floor(timeInSeconds / 60)
-    let seconds = timeInSeconds - (minutes * 60)
-    return `${minutes}min ${seconds}sec`
-}
-
-function getSearchedSummonerData(summonerData: SummonerDTO, participants: any): any {
-    /* Returns the match data of the searched summoner. */
-    let searchedSummoner = participants.find((participant: any) => {
-        return participant.puuid == summonerData.puuid
-    })
-    return searchedSummoner
-}
-
-function getSearchedSummonerItems(searchedSummonerData: any): Array<string> {
-    /* Return an array of strings containing item IDs or '0' for no item. */
-    const itemArray = []
-    for (let i=0; i<7; i++) {
-        itemArray.push(searchedSummonerData[`item${i}`].toString())
-    }
-    return itemArray
-}
-
-function getQueueType(queueId: number): string {
-  /* Return a string detailing the type of match based on the queueId*/
-  const stringQueueId = queueId.toString()
-  const queueDict: queueDisplay = {
-    '400': 'Normals Draft',
-    '420': 'Ranked Solos',
-    '430': 'Normals Blind',
-    '440': 'Ranked Flex',
-    '450': 'ARAM',
-  }
-  return queueDict[stringQueueId]
-}
-
-function displaySummonerName(name: string): string {
-    /* Displays the user's name limiting the maximum length that can be displayed. */
-    const MAX_NAME_LENGTH = 8
-    if (name.length > MAX_NAME_LENGTH) {
-        return (name.substring(0, MAX_NAME_LENGTH) + '...')
-    } else {
-        return name
-    }
-}

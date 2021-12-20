@@ -7,9 +7,11 @@ import { SummonerDTO, riotRouter } from '../../../interfaces';
 import Profile from '../../../components/Profile'
 import Match from '../../../components/Match'
 
-const NUM_OF_MATCHES = 5
+const NUM_OF_MATCHES = 10
 
 const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: {summonerData: SummonerDTO, arrayOfMatchData: any, arrayOfLeaguesData: any, region: string}) => {
+
+    console.log(arrayOfMatchData)
 
     let matches = arrayOfMatchData.map((match: any, index: number) => {
         return <Match key={match.metadata.matchId} summonerData={summonerData} matchData={match}></Match>

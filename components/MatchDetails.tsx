@@ -1,9 +1,10 @@
 import { Box, Grid, Typography } from "@mui/material"
 
+import { getTeamStats } from "../utilities/matchFunctions";
 import MatchPlayerDetails from "./MatchPlayerDetails";
 
 
-function MatchDetails({matchData, searchedSummonerData}: {matchData: any, searchedSummonerData: any}) {
+export default function MatchDetails({matchData, searchedSummonerData}: {matchData: any, searchedSummonerData: any}) {
     /* Displays the detailed information from the given match data. */
 
     const searchedSummonerTeamId = searchedSummonerData.teamId
@@ -111,25 +112,4 @@ function MatchDetails({matchData, searchedSummonerData}: {matchData: any, search
     );
 }
 
-export default MatchDetails
 
-function getTeamStats(searchedTeamParticipants: any, opponentTeamParticipants: any, matchData: any) {
-  /* Returns both team statistics to be displayed. */
-
-  let userTeamObjectives = matchData.info.teams.find((team: any) => searchedTeamParticipants[0].teamId == team.teamId).objectives
-  let opponentTeamObjectives = matchData.info.teams.find((team: any) => opponentTeamParticipants[0].teamId == team.teamId).objectives
-
-  let teamStats = [
-    {name: 'Total Kills', 
-      searchedUserTeamValue: searchedTeamParticipants.reduce(((total: number, participant: any) => {return total += participant.kills}), 0),
-      opponentTeamValue: opponentTeamParticipants.reduce(((total: number, participant: any) => {return total += participant.kills}), 0)},
-    {name: 'Total Gold Earned', 
-      searchedUserTeamValue: searchedTeamParticipants.reduce(((total: number, participant: any) => {return total += participant.goldEarned}), 0),
-      opponentTeamValue: opponentTeamParticipants.reduce(((total: number, participant: any) => {return total += participant.goldEarned}), 0)},
-    {name: 'Barons Killed', searchedUserTeamValue: userTeamObjectives.baron.kills, opponentTeamValue: opponentTeamObjectives.baron.kills},
-    {name: 'Dragons Killed', searchedUserTeamValue: userTeamObjectives.dragon.kills, opponentTeamValue: opponentTeamObjectives.dragon.kills},
-    {name: 'Towers Destroyed', searchedUserTeamValue: userTeamObjectives.tower.kills, opponentTeamValue: opponentTeamObjectives.tower.kills},
-  ]
-  
-  return teamStats
-}

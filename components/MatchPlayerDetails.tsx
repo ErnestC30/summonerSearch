@@ -1,10 +1,10 @@
 import { Badge, Box, Grid, Link, Typography } from "@mui/material"
 import { useContext } from "react"
 
+import { getChampionName, getParticipantItems, getSummonerSpellImage } from "../utilities/matchFunctions";
 import { RegionContext } from "../RegionContext";
-import { spellData } from '../interfaces'; 
 
-function MatchPlayerDetails({ participant }: { participant: any }) {
+export default function MatchPlayerDetails({ participant }: { participant: any }) {
   /* Returns a single participant's match details. */
 
   const summonerSpells = require("../data/summonerSpells.json");
@@ -40,7 +40,7 @@ function MatchPlayerDetails({ participant }: { participant: any }) {
                       }}
                     >
                       <img
-                        src={`http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${participant.championName}.png`}
+                        src={`http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${getChampionName(participant.championName)}.png`}
                         height="45px"
                         width="45px"
                         style={{
@@ -150,28 +150,4 @@ function MatchPlayerDetails({ participant }: { participant: any }) {
       </Grid>
     </>
   );
-}
-
-export default MatchPlayerDetails
-
-function getSummonerSpellImage(
-  spellId: string,
-  summonerSpellsList: any
-): string {
-  let summonerSpellLink;
-  for (const [spellName, spellData] of Object.entries(summonerSpellsList)) {
-    if ((spellData as spellData).key == spellId) {
-      summonerSpellLink = (spellData as spellData).image.full;
-    }
-  }
-  return `http://ddragon.leagueoflegends.com/cdn/11.24.1/img/spell/${summonerSpellLink}`;
-}
-
-function getParticipantItems(participantData: any): Array<string> {
-  /* Return an array of strings containing item IDs or '0' for no item. */
-  const itemArray = [];
-  for (let i = 0; i < 7; i++) {
-    itemArray.push(participantData[`item${i}`].toString());
-  }
-  return itemArray;
 }
