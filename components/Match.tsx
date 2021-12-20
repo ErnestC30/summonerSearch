@@ -13,7 +13,7 @@ export default function Match({
   summonerData: SummonerDTO
   matchData: any
 }) {
-  /* Component for detailed information on a single match.  */
+  /* Component displaying the summary of the given match data and holds the MatchDetails component.  */
 
   const dataDragonVersion = process.env.dataDragonVersion
   const gameDuration = getGameTime(matchData.info.gameDuration);
@@ -24,8 +24,6 @@ export default function Match({
   const searchedSummonerItems = getParticipantItems(searchedSummonerData);
   const teamOneParticipants = matchData.info.participants.slice(0, 5);
   const teamTwoParticipants = matchData.info.participants.slice(5, 10);
-
-  console.log(dataDragonVersion)
 
   return (
     <>
@@ -38,8 +36,9 @@ export default function Match({
       >
         {/* Match overview component */}
         <AccordionSummary>
-          <Grid container columns={15} spacing={3} alignItems="center">
-            <Grid item xs={2}>
+          <Grid container columns={22} spacing={2} alignItems="center">
+            {/* Match type info */}
+            <Grid item xs={3}>
               <Typography variant="body2" align="center">{getQueueType(matchData.info.queueId)}</Typography>
               <Typography variant="body2" align="center">
                 {gameDuration}
@@ -48,7 +47,8 @@ export default function Match({
                 {searchedSummonerData.win ? "Victory" : "Defeat"}
               </Typography>
             </Grid>
-            <Grid item xs={1}>
+            {/* Champion icon and name */}
+            <Grid item xs={3}>
               <Grid container direction="column" alignItems="center">
                 <Grid item>
                   <Typography>{searchedSummonerData.championName}</Typography>
@@ -57,12 +57,13 @@ export default function Match({
                   <img
                     width="50px"
                     height="50px"
-                    src={`http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${searchedSummonerData.championName}.png`}
+                    src={`http://ddragon.leagueoflegends.com/cdn/${dataDragonVersion}/img/champion/${searchedSummonerData.championName}.png`}
                   />
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={2}>
+            {/* KDA */}
+            <Grid item xs={3}>
               <Grid container direction="column" alignItems="center">
                 <Grid item>
                   <Typography>
@@ -83,8 +84,8 @@ export default function Match({
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={4}>
-              {/* Grid of items of the searched user. */}
+            {/* Items */}
+            <Grid item xs={6}>
               <Grid container spacing={0.25}>
                 {searchedSummonerItems.map((item, index) => {
                   return item != "0" ? (
@@ -92,7 +93,7 @@ export default function Match({
                       <img
                         width="30px"
                         height="30px"
-                        src={`https://ddragon.leagueoflegends.com/cdn/11.23.1/img/item/${item}.png`}
+                        src={`https://ddragon.leagueoflegends.com/cdn/${dataDragonVersion}/img/item/${item}.png`}
                       />
                     </Grid>
                   ) : (
@@ -112,7 +113,8 @@ export default function Match({
                 })}
               </Grid>
             </Grid>
-            <Grid item xs>
+            {/* Team one participants */}
+            <Grid item xs={3}>
               <Grid container direction="column" alignItems="right">
                 {teamOneParticipants.map((participant: any) => {
                   return (
@@ -126,7 +128,7 @@ export default function Match({
                       }}
                     >
                       <img
-                        src={`http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${getChampionName(participant.championName)}.png`}
+                        src={`http://ddragon.leagueoflegends.com/cdn/${dataDragonVersion}/img/champion/${getChampionName(participant.championName)}.png`}
                         height="20px"
                         width="20px"
                       />
@@ -137,7 +139,8 @@ export default function Match({
                 })}
               </Grid>
             </Grid>
-            <Grid item xs>
+            {/* Team two participants */}
+            <Grid item xs={3}>
               <Grid container direction="column">
                 {teamTwoParticipants.map((participant: any) => {
                   return (
@@ -151,7 +154,7 @@ export default function Match({
                       }}
                     >
                       <img
-                        src={`http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${participant.championName}.png`}
+                        src={`http://ddragon.leagueoflegends.com/cdn/${dataDragonVersion}/img/champion/${participant.championName}.png`}
                         height="20px"
                         width="20px"
                       />

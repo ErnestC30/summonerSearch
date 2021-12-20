@@ -5,7 +5,7 @@ import MatchPlayerDetails from "./MatchPlayerDetails";
 
 
 export default function MatchDetails({matchData, searchedSummonerData}: {matchData: any, searchedSummonerData: any}) {
-    /* Displays the detailed information from the given match data. */
+    /* Component that displays the detailed information from the given match data. */
 
     const searchedSummonerTeamId = searchedSummonerData.teamId
     const usersTeamParticipants = matchData.info.participants.filter((participant: any) => participant.teamId == searchedSummonerTeamId)

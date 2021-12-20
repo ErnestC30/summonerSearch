@@ -11,8 +11,6 @@ const NUM_OF_MATCHES = 10
 
 const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: {summonerData: SummonerDTO, arrayOfMatchData: any, arrayOfLeaguesData: any, region: string}) => {
 
-    console.log(arrayOfMatchData)
-
     let matches = arrayOfMatchData.map((match: any, index: number) => {
         return <Match key={match.metadata.matchId} summonerData={summonerData} matchData={match}></Match>
     })
@@ -21,9 +19,9 @@ const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: 
     return (
         <>
             <RegionContext.Provider value={region}>
-                <Container>
-                    <Profile summonerData={summonerData} arrayOfLeaguesData={arrayOfLeaguesData}></Profile>
-                    {/* List of matches */}
+                <Container sx={{minWidth: '933px'}}>
+                    <Profile summonerData={summonerData} arrayOfLeaguesData={arrayOfLeaguesData}/>
+                    {/* Array of Match components */}
                     {matches} 
                 </Container>
             </RegionContext.Provider>

@@ -5,8 +5,9 @@ import { getChampionName, getParticipantItems, getSummonerSpellImage } from "../
 import { RegionContext } from "../RegionContext";
 
 export default function MatchPlayerDetails({ participant }: { participant: any }) {
-  /* Returns a single participant's match details. */
+  /* Component that displays a single participant's match details. */
 
+  const dataDragonVersion = process.env.dataDragonVersion
   const summonerSpells = require("../data/summonerSpells.json");
   const participantItems = getParticipantItems(participant)
   const region = useContext(RegionContext)
@@ -40,7 +41,7 @@ export default function MatchPlayerDetails({ participant }: { participant: any }
                       }}
                     >
                       <img
-                        src={`http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${getChampionName(participant.championName)}.png`}
+                        src={`http://ddragon.leagueoflegends.com/cdn/${dataDragonVersion}/img/champion/${getChampionName(participant.championName)}.png`}
                         height="45px"
                         width="45px"
                         style={{
@@ -126,7 +127,7 @@ export default function MatchPlayerDetails({ participant }: { participant: any }
                     <img
                       width="30px"
                       height="30px"
-                      src={`https://ddragon.leagueoflegends.com/cdn/11.23.1/img/item/${item}.png`}
+                      src={`https://ddragon.leagueoflegends.com/cdn/${dataDragonVersion}/img/item/${item}.png`}
                     />
                   </Grid>
                 ) : (
