@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Router from 'next/router'
 import { Box, Button, FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 
@@ -47,6 +47,7 @@ function SearchBar({ width, minWidth, addLabel, fieldLabel, buttonSize="medium" 
           }
         }}
         sx={{backgroundColor: 'white', borderRadius: 1, paddingRight: 0}}
+        inputProps={{ maxLength: 25 }}
         InputProps={{
           endAdornment: (
             <FormControl

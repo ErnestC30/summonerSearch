@@ -1,16 +1,17 @@
 import { Box, Grid, Typography } from "@mui/material"
 
+import { MatchDTO, Participant, Team } from "../interfaces";
 import { getTeamStats } from "../utilities/matchFunctions";
 import MatchPlayerDetails from "./MatchPlayerDetails";
 
 
-export default function MatchDetails({matchData, searchedSummonerData}: {matchData: any, searchedSummonerData: any}) {
+export default function MatchDetails({matchData, searchedSummonerData}: {matchData: MatchDTO, searchedSummonerData: Participant}) {
     /* Component that displays the detailed information from the given match data. */
 
     const searchedSummonerTeamId = searchedSummonerData.teamId
-    const usersTeamParticipants = matchData.info.participants.filter((participant: any) => participant.teamId == searchedSummonerTeamId)
-    const opponentTeamParticipants = matchData.info.participants.filter((participant: any) => participant.teamId != searchedSummonerTeamId)
-    let teamStats = getTeamStats(usersTeamParticipants, opponentTeamParticipants, matchData)
+    const usersTeamParticipants = matchData.info.participants.filter((participant: Participant) => participant.teamId == searchedSummonerTeamId)
+    const opponentTeamParticipants = matchData.info.participants.filter((participant: Participant) => participant.teamId != searchedSummonerTeamId)
+    let teamStats = getTeamStats(usersTeamParticipants, opponentTeamParticipants, matchData.info.teams)
 
     return (
       <>
@@ -56,7 +57,7 @@ export default function MatchDetails({matchData, searchedSummonerData}: {matchDa
             {/* Displays stat comparisons between the two teams*/}
             <Grid item sx={{marginTop: '10px', marginBottom: '10px', marginLeft: '-20px', padding: '5px', backgroundColor: 'rgba(252, 252, 252, 0.4)', width: `calc(100% + 40px)`}}>
               <Grid container columnSpacing={2} alignItems='center' justifyContent='center'>
-                {teamStats.map((stat: any, index) => {
+                {teamStats.map((stat: any, index: number) => {
                   return (
                     <Grid item key={index}>
                       <Box sx={{display: 'flex', flexDirection:'column', alignItems: 'center'}}>

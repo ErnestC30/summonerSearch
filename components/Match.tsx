@@ -2,8 +2,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, Grid, Typography} f
 
 import { displaySummonerName, getChampionName, getGameTime, getSearchedSummonerData, getParticipantItems, getQueueType } from "../utilities/matchFunctions";
 import MatchDetails from "./MatchDetails";
-import { theme } from '../theme'
-import { SummonerDTO } from '../interfaces'; 
+import { MatchDTO, Participant, SummonerDTO } from '../interfaces'; 
 
 
 export default function Match({
@@ -11,19 +10,19 @@ export default function Match({
   matchData,
 }: {
   summonerData: SummonerDTO
-  matchData: any
+  matchData: MatchDTO
 }) {
   /* Component displaying the summary of the given match data and holds the MatchDetails component.  */
 
   const dataDragonVersion = process.env.dataDragonVersion
   const gameDuration = getGameTime(matchData.info.gameDuration);
-  const searchedSummonerData = getSearchedSummonerData(
+  const searchedSummonerData: Participant = getSearchedSummonerData(
     summonerData,
     matchData.info.participants
   );
-  const searchedSummonerItems = getParticipantItems(searchedSummonerData);
-  const teamOneParticipants = matchData.info.participants.slice(0, 5);
-  const teamTwoParticipants = matchData.info.participants.slice(5, 10);
+  const searchedSummonerItems: Array<string> = getParticipantItems(searchedSummonerData);
+  const teamOneParticipants: Array<Participant> = matchData.info.participants.slice(0, 5);
+  const teamTwoParticipants: Array<Participant> = matchData.info.participants.slice(5, 10);
 
   return (
     <>
@@ -87,7 +86,7 @@ export default function Match({
             {/* Items */}
             <Grid item xs={6}>
               <Grid container spacing={0.25}>
-                {searchedSummonerItems.map((item, index) => {
+                {searchedSummonerItems.map((item: string, index: number) => {
                   return item != "0" ? (
                     <Grid item key={index}> 
                       <img
@@ -116,7 +115,7 @@ export default function Match({
             {/* Team one participants */}
             <Grid item xs={3}>
               <Grid container direction="column" alignItems="right">
-                {teamOneParticipants.map((participant: any) => {
+                {teamOneParticipants.map((participant: Participant) => {
                   return (
                     <Typography
                       key={participant.puuid}
@@ -142,7 +141,7 @@ export default function Match({
             {/* Team two participants */}
             <Grid item xs={3}>
               <Grid container direction="column">
-                {teamTwoParticipants.map((participant: any) => {
+                {teamTwoParticipants.map((participant: Participant) => {
                   return (
                     <Typography
                       key={participant.puuid}

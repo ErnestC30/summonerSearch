@@ -1,12 +1,12 @@
 /* Helper functions related to Match, MatchDetails, MatchPlayerDetails components. */
 
-import { queueDisplay, spellData, SummonerDTO } from '../interfaces'; 
+import { MatchDTO, Participant, QueueDisplay, SpellData, SummonerDTO, Team} from '../interfaces'; 
 
 export function displaySummonerName(name: string, maxLength: number = 8): string {
-  /* Displays the user's name limiting the maximum length that can be displayed. */
-  const MAX_NAME_LENGTH = maxLength
-  if (name.length > MAX_NAME_LENGTH) {
-      return (name.substring(0, MAX_NAME_LENGTH) + '...')
+  /* Displays the user's name, shortening the name if it passes the maxLength */
+
+  if (name.length > maxLength) {
+      return (name.substring(0, maxLength) + '...')
   } else {
       return name
   }
@@ -29,12 +29,12 @@ export function getGameTime(timeInSeconds: number): string {
     return `${minutes}min ${seconds}sec`
 }
 
-export function getSearchedSummonerData(summonerData: SummonerDTO, participants: any): any {
+export function getSearchedSummonerData(summonerData: SummonerDTO, participants: Participant[]): Participant {
   /* Returns the match data of the searched summoner. */
-  let searchedSummoner = participants.find((participant: any) => {
+  let searchedSummoner = participants.find((participant: Participant) => {
       return participant.puuid == summonerData.puuid
   })
-  return searchedSummoner
+  return searchedSummoner as Participant
 }
 
 export function getSummonerSpellImage(
@@ -43,18 +43,18 @@ export function getSummonerSpellImage(
 ): string {
   let summonerSpellLink;
   for (const [spellName, spellData] of Object.entries(summonerSpellsList)) {
-    if ((spellData as spellData).key == spellId) {
-      summonerSpellLink = (spellData as spellData).image.full;
+    if ((spellData as SpellData).key == spellId) {
+      summonerSpellLink = (spellData as SpellData).image.full;
     }
   }
   return `http://ddragon.leagueoflegends.com/cdn/11.24.1/img/spell/${summonerSpellLink}`;
 }
 
-export function getParticipantItems(searchedSummonerData: any): Array<string> {
+export function getParticipantItems(participantData: Participant): Array<string> {
   /* Return an array of strings containing item IDs or '0' for no item. */
   const itemArray = []
   for (let i=0; i<7; i++) {
-      itemArray.push(searchedSummonerData[`item${i}`].toString())
+      itemArray.push(participantData[`item${i}` as keyof Participant].toString())
   }
   return itemArray
 }
@@ -62,7 +62,7 @@ export function getParticipantItems(searchedSummonerData: any): Array<string> {
 export function getQueueType(queueId: number): string {
   /* Return a string detailing the type of match based on the queueId*/
   const stringQueueId = queueId.toString()
-  const queueDict: queueDisplay = {
+  const queueDict: QueueDisplay = {
     '400': 'Normals Draft',
     '420': 'Ranked Solos',
     '430': 'Normals Blind',
@@ -72,11 +72,11 @@ export function getQueueType(queueId: number): string {
   return queueDict[stringQueueId]
 }
 
-export function getTeamStats(searchedTeamParticipants: any, opponentTeamParticipants: any, matchData: any) {
+export function getTeamStats(searchedTeamParticipants: Participant[], opponentTeamParticipants: Participant[], teamsData: Team[]) {
   /* Returns both team statistics to be displayed. */
 
-  let userTeamObjectives = matchData.info.teams.find((team: any) => searchedTeamParticipants[0].teamId == team.teamId).objectives
-  let opponentTeamObjectives = matchData.info.teams.find((team: any) => opponentTeamParticipants[0].teamId == team.teamId).objectives
+  const userTeamObjectives = teamsData.find((team: Team) => searchedTeamParticipants[0].teamId == team.teamId).objectives
+  const opponentTeamObjectives = teamsData.find((team: Team) => opponentTeamParticipants[0].teamId == team.teamId).objectives
 
   let teamStats = [
     {name: 'Total Kills', 

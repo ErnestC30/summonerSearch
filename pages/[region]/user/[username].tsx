@@ -3,30 +3,37 @@ import { GetServerSideProps } from 'next'
 import { Container } from '@mui/material';
 
 import { RegionContext } from "../../../RegionContext";
-import { SummonerDTO, riotRouter } from '../../../interfaces'; 
+import { MatchDTO, SummonerDTO, RiotRouter, LeagueData } from '../../../interfaces'; 
 import Profile from '../../../components/Profile'
 import Match from '../../../components/Match'
 
+//Sets the number of matches that will be queried from riot API
 const NUM_OF_MATCHES = 5
 
-const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: {summonerData: SummonerDTO, arrayOfMatchData: any, arrayOfLeaguesData: any, region: string}) => {
+const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: {summonerData: SummonerDTO, arrayOfMatchData: MatchDTO[], arrayOfLeaguesData: LeagueData, region: string}) => {
 
-    let matches = arrayOfMatchData.map((match: any, index: number) => {
-        return <Match key={match.metadata.matchId} summonerData={summonerData} matchData={match}></Match>
-    })
-
-    //Render Match components
     return (
-        <>
-            <RegionContext.Provider value={region}>
-                <Container sx={{minWidth: '933px'}}>
-                    <Profile summonerData={summonerData} arrayOfLeaguesData={arrayOfLeaguesData}/>
-                    {/* Array of Match components */}
-                    {matches} 
-                </Container>
-            </RegionContext.Provider>
-        </>
-    )
+      <>
+        <RegionContext.Provider value={region}>
+          <Container sx={{ minWidth: "933px" }}>
+            <Profile
+              summonerData={summonerData}
+              arrayOfLeaguesData={arrayOfLeaguesData}
+            />
+            {/* Array of Match comoponents */}
+            {arrayOfMatchData.map((match: MatchDTO) => {
+              return (
+                <Match
+                  key={match.metadata.matchId}
+                  summonerData={summonerData}
+                  matchData={match}
+                ></Match>
+              );
+            })}
+          </Container>
+        </RegionContext.Provider>
+      </>
+    );
 }
 
 export default UserInfo
@@ -35,7 +42,7 @@ function getRouter(region: string | string[] | undefined): string {
     //Returns the router associated with the given region.
     
     const strRegion = String(region)
-    const routerMap: riotRouter = {
+    const routerMap: RiotRouter = {
         'NA1': 'americas',
         'BR1': 'americas',
         'EUW1': 'europe',
@@ -64,7 +71,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const matchesIdData: Array<number> = await getMatchesIdResponse.json()
 
     //Get the data of recent matches.
-    let arrayOfMatchData = []
+    let arrayOfMatchData: MatchDTO[] = []
     for (let matchId of matchesIdData) {
         let matchResponse = await fetch(`https://${router}.api.riotgames.com/lol/match/v5/matches/${matchId}?api_key=${riotKey}`)
         let matchData = await matchResponse.json()
