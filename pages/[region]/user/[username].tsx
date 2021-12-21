@@ -7,7 +7,7 @@ import { SummonerDTO, riotRouter } from '../../../interfaces';
 import Profile from '../../../components/Profile'
 import Match from '../../../components/Match'
 
-const NUM_OF_MATCHES = 10
+const NUM_OF_MATCHES = 5
 
 const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: {summonerData: SummonerDTO, arrayOfMatchData: any, arrayOfLeaguesData: any, region: string}) => {
 
@@ -50,13 +50,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const riotKey = process.env.RIOT_API
 
     /* NEED TO HANDLE ERRORS - IF DATA CANNOT BE FETCHED*/
-    /* HANDLE FETCHING OF CHINESE/KOREAN CHARACTERS?? */
 
     const {username, region} = context.query
     const router = getRouter(region)
 
     //Find user's information.
-    const getSummonerResponse = await fetch(`https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${username}?api_key=${riotKey}`)
+    const getSummonerResponse = await fetch(`https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${encodeURIComponent(username as string)}?api_key=${riotKey}`)
     const summonerData: SummonerDTO = await getSummonerResponse.json()
     
     //Find the user's recent matches by ID. --> can add more optional parameters

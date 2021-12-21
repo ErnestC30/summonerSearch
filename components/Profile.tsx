@@ -8,6 +8,7 @@ function Profile({
   summonerData: any;
   arrayOfLeaguesData: any;
 }) {
+
   const dataDragonVersion = process.env.dataDragonVersion;
 
   return (
@@ -40,7 +41,7 @@ function Profile({
           </Box>
         </Box>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs>
         <Typography variant="h4">{summonerData.name}</Typography>
       </Grid>
       {/* Render PlayerLeague component for Ranked Solo and/or Flex stats if they exist. */}
