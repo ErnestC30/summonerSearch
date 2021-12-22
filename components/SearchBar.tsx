@@ -47,7 +47,7 @@ function SearchBar({ width, minWidth, addLabel, fieldLabel, buttonSize="medium" 
           }
         }}
         sx={{backgroundColor: 'white', borderRadius: 1, paddingRight: 0}}
-        inputProps={{ maxLength: 25 }}
+        inputProps={{ maxLength: 25, spellCheck: false }}
         InputProps={{
           endAdornment: (
             <FormControl

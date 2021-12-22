@@ -10,7 +10,7 @@ import Match from '../../../components/Match'
 //Sets the number of matches that will be queried from riot API
 const NUM_OF_MATCHES = 5
 
-const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: {summonerData: SummonerDTO, arrayOfMatchData: MatchDTO[], arrayOfLeaguesData: LeagueData, region: string}) => {
+const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: {summonerData: SummonerDTO, arrayOfMatchData: MatchDTO[], arrayOfLeaguesData: LeagueData[], region: string}) => {
 
     return (
       <>

@@ -1,12 +1,13 @@
 import { Box, Grid, Typography } from "@mui/material"
+import { LeagueData, SummonerDTO } from "../interfaces";
 import PlayerLeague from "./PlayerLeague"
 
 function Profile({
   summonerData,
   arrayOfLeaguesData,
 }: {
-  summonerData: any;
-  arrayOfLeaguesData: any;
+  summonerData: SummonerDTO;
+  arrayOfLeaguesData: LeagueData[];
 }) {
 
   const dataDragonVersion = process.env.dataDragonVersion;
@@ -57,10 +58,10 @@ function Profile({
 
 export default Profile 
 
-function renderIfLeagueExists(arrayOfLeaguesData: any, leagueType: any): any {
+function renderIfLeagueExists(arrayOfLeaguesData: LeagueData[], leagueType: string): JSX.Element | null {
   /* Returns a PlayerLeague component for the league if it exists. */
 
-  let leagueInfo = arrayOfLeaguesData.find((league: any) => 
+  let leagueInfo = arrayOfLeaguesData.find((league: LeagueData) => 
     league.queueType == leagueType
   )
   return leagueInfo ? <PlayerLeague leagueInfo={leagueInfo}/> : null

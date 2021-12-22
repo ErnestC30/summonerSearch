@@ -53,6 +53,12 @@ export interface SpellData {
     resource: string;
 }
 
+export interface Stat {
+    name: string
+    searchedUserTeamValue: number
+    opponentTeamValue: number
+}
+
 //MatchDTO Interfaces
 export interface MatchDTO {
     metadata: Metadata;
