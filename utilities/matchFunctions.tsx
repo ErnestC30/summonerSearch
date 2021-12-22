@@ -38,12 +38,14 @@ export function getSearchedSummonerData(summonerData: SummonerDTO, participants:
 }
 
 export function getSummonerSpellImage(
-  spellId: string,
-  summonerSpellsList: any
+  spellId: number,
+  summonerSpellsList: { [key: string]: SpellData }
 ): string {
+  /* Returns the data dragon link for the given summoner spell id */
+
   let summonerSpellLink;
   for (const [spellName, spellData] of Object.entries(summonerSpellsList)) {
-    if ((spellData as SpellData).key == spellId) {
+    if ((spellData as SpellData).key == spellId.toString()) {
       summonerSpellLink = (spellData as SpellData).image.full;
     }
   }
@@ -80,11 +82,11 @@ export function getTeamStats(searchedTeamParticipants: Participant[], opponentTe
 
   let teamStats = [
     {name: 'Total Kills', 
-      searchedUserTeamValue: searchedTeamParticipants.reduce(((total: number, participant: any) => {return total += participant.kills}), 0),
-      opponentTeamValue: opponentTeamParticipants.reduce(((total: number, participant: any) => {return total += participant.kills}), 0)},
+      searchedUserTeamValue: searchedTeamParticipants.reduce(((total: number, participant: Participant) => {return total += participant.kills}), 0),
+      opponentTeamValue: opponentTeamParticipants.reduce(((total: number, participant: Participant) => {return total += participant.kills}), 0)},
     {name: 'Total Gold Earned', 
-      searchedUserTeamValue: searchedTeamParticipants.reduce(((total: number, participant: any) => {return total += participant.goldEarned}), 0),
-      opponentTeamValue: opponentTeamParticipants.reduce(((total: number, participant: any) => {return total += participant.goldEarned}), 0)},
+      searchedUserTeamValue: searchedTeamParticipants.reduce(((total: number, participant: Participant) => {return total += participant.goldEarned}), 0),
+      opponentTeamValue: opponentTeamParticipants.reduce(((total: number, participant: Participant) => {return total += participant.goldEarned}), 0)},
     {name: 'Barons Killed', searchedUserTeamValue: userTeamObjectives.baron.kills, opponentTeamValue: opponentTeamObjectives.baron.kills},
     {name: 'Dragons Killed', searchedUserTeamValue: userTeamObjectives.dragon.kills, opponentTeamValue: opponentTeamObjectives.dragon.kills},
     {name: 'Towers Destroyed', searchedUserTeamValue: userTeamObjectives.tower.kills, opponentTeamValue: opponentTeamObjectives.tower.kills},

@@ -3,8 +3,9 @@ import { useContext } from "react"
 
 import { getChampionName, getParticipantItems, getSummonerSpellImage } from "../utilities/matchFunctions";
 import { RegionContext } from "../RegionContext";
+import { Participant } from "../interfaces";
 
-export default function MatchPlayerDetails({ participant }: { participant: any }) {
+export default function MatchPlayerDetails({ participant }: { participant: Participant }) {
   /* Component that displays a single participant's match details. */
 
   const dataDragonVersion = process.env.dataDragonVersion

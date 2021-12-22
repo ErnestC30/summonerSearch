@@ -64,6 +64,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     //Find user's information.
     const getSummonerResponse = await fetch(`https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${encodeURIComponent(username as string)}?api_key=${riotKey}`)
     const summonerData: SummonerDTO = await getSummonerResponse.json()
+    if(summonerData.status?.status_code == '404') {
+      return {
+        notFound: true
+      }
+    }
     
     //Find the user's recent matches by ID. --> can add more optional parameters
     const puuid = summonerData.puuid

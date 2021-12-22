@@ -1,20 +1,21 @@
 //Custom Interfaces
 export interface SummonerDTO {
-    accountid: string
-    profileIconId: number
-    revisionDate: number
-    name: string
-    id: string
-    puuid: string 
-    summonerLevel: number
+  accountid: string;
+  profileIconId: number;
+  revisionDate: number;
+  name: string;
+  id: string;
+  puuid: string;
+  summonerLevel: number;
+  status: any;
 }
 
 export interface RiotRouter {
-    [region: string]: string
+  [region: string]: string;
 }
 
 export interface QueueDisplay {
-    [queueType: string]: string
+  [queueType: string]: string;
 }
 
 export interface SpellImage {
