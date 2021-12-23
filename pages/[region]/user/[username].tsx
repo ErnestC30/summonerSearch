@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { GetServerSideProps } from 'next'
 import { Container } from '@mui/material';
 
@@ -6,11 +6,17 @@ import { RegionContext } from "../../../RegionContext";
 import { MatchDTO, SummonerDTO, RiotRouter, LeagueData } from '../../../interfaces'; 
 import Profile from '../../../components/Profile'
 import Match from '../../../components/Match'
+import useMatchSearch from "../../../useMatchSearch";
 
 //Sets the number of matches that will be queried from riot API
-const NUM_OF_MATCHES = 5
+const NUM_OF_MATCHES = 8
 
 const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: {summonerData: SummonerDTO, arrayOfMatchData: MatchDTO[], arrayOfLeaguesData: LeagueData[], region: string}) => {
+
+    const [totalArrayOfMatches, setTotalArrayOfMatches] = useState<MatchDTO[]>(arrayOfMatchData)
+
+    let testMatches = useMatchSearch(summonerData.puuid, 0, NUM_OF_MATCHES, region)
+    console.log(`data returned: ${testMatches?.name}`)
 
     return (
       <>
@@ -21,7 +27,7 @@ const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: 
               arrayOfLeaguesData={arrayOfLeaguesData}
             />
             {/* Array of Match comoponents */}
-            {arrayOfMatchData.map((match: MatchDTO) => {
+            {totalArrayOfMatches.map((match: MatchDTO) => {
               return (
                 <Match
                   key={match.metadata.matchId}
@@ -56,12 +62,10 @@ function getRouter(region: string | string[] | undefined): string {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const riotKey = process.env.RIOT_API
 
-    /* NEED TO HANDLE ERRORS - IF DATA CANNOT BE FETCHED*/
-
     const {username, region} = context.query
     const router = getRouter(region)
 
-    //Find user's information.
+    //Find user's puuid and other information.
     const getSummonerResponse = await fetch(`https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${encodeURIComponent(username as string)}?api_key=${riotKey}`)
     const summonerData: SummonerDTO = await getSummonerResponse.json()
     if(summonerData.status?.status_code == '404') {
@@ -70,22 +74,24 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     }
     
-    //Find the user's recent matches by ID. --> can add more optional parameters
+    const summonerId = summonerData.id
+    let leaguesResponse = await fetch(`https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerId}?api_key=${riotKey}`)
+    let arrayOfLeaguesData = await leaguesResponse.json()
+
+    /* BOTTOM TWO FUNCTIONS REMOVABLE WHEN INFINTE LOADING FINISHED. */
+
+    //Get the array of matchIds belonging to the user.
     const puuid = summonerData.puuid
     const getMatchesIdResponse = await fetch(`https://${router}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=${NUM_OF_MATCHES}&api_key=${riotKey}`)
     const matchesIdData: Array<number> = await getMatchesIdResponse.json()
 
-    //Get the data of recent matches.
+    //Get the match details using the matchId.
     let arrayOfMatchData: MatchDTO[] = []
     for (let matchId of matchesIdData) {
         let matchResponse = await fetch(`https://${router}.api.riotgames.com/lol/match/v5/matches/${matchId}?api_key=${riotKey}`)
         let matchData = await matchResponse.json()
         arrayOfMatchData.push(matchData)
     }
-
-    const summonerId = summonerData.id
-    let leaguesResponse = await fetch(`https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerId}?api_key=${riotKey}`)
-    let arrayOfLeaguesData = await leaguesResponse.json()
 
     //console.log(summonerData)
     //console.log(matchesIdData)
