@@ -5,13 +5,7 @@ import MatchDetails from "./MatchDetails";
 import { MatchDTO, Participant, SummonerDTO } from '../interfaces'; 
 
 
-export default function Match({
-  summonerData,
-  matchData,
-}: {
-  summonerData: SummonerDTO
-  matchData: MatchDTO
-}) {
+export default function Match({summonerData,matchData}: {summonerData: SummonerDTO, matchData: MatchDTO}) {
   /* Component displaying the summary of the given match data and holds the MatchDetails component.  */
 
   const dataDragonVersion = process.env.dataDragonVersion
@@ -38,7 +32,9 @@ export default function Match({
           <Grid container columns={22} spacing={2} alignItems="center">
             {/* Match type info */}
             <Grid item xs={3}>
-              <Typography variant="body2" align="center">{getQueueType(matchData.info.queueId)}</Typography>
+              <Typography variant="body2" align="center">
+                {getQueueType(matchData.info.queueId)}
+              </Typography>
               <Typography variant="body2" align="center">
                 {gameDuration}
               </Typography>
@@ -88,7 +84,7 @@ export default function Match({
               <Grid container spacing={0.25}>
                 {searchedSummonerItems.map((item: string, index: number) => {
                   return item != "0" ? (
-                    <Grid item key={index}> 
+                    <Grid item key={index}>
                       <img
                         width="30px"
                         height="30px"
@@ -127,7 +123,9 @@ export default function Match({
                       }}
                     >
                       <img
-                        src={`http://ddragon.leagueoflegends.com/cdn/${dataDragonVersion}/img/champion/${getChampionName(participant.championName)}.png`}
+                        src={`http://ddragon.leagueoflegends.com/cdn/${dataDragonVersion}/img/champion/${getChampionName(
+                          participant.championName
+                        )}.png`}
                         height="20px"
                         width="20px"
                       />
@@ -167,8 +165,16 @@ export default function Match({
           </Grid>
         </AccordionSummary>
         {/* Match detail component */}
-        <AccordionDetails sx={{backgroundColor: searchedSummonerData.win ? "winBG" : "loseBG", padding: '0px'}}>
-          <MatchDetails matchData={matchData} searchedSummonerData={searchedSummonerData}></MatchDetails>
+        <AccordionDetails
+          sx={{
+            backgroundColor: searchedSummonerData.win ? "winBG" : "loseBG",
+            padding: "0px",
+          }}
+        >
+          <MatchDetails
+            matchData={matchData}
+            searchedSummonerData={searchedSummonerData}
+          ></MatchDetails>
         </AccordionDetails>
       </Accordion>
     </>

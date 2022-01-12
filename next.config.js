@@ -2,6 +2,6 @@
 module.exports = {
   reactStrictMode: true,
   env: {
-    dataDragonVersion: '11.24.1'
+    dataDragonVersion: '12.1.1'
   }
 }

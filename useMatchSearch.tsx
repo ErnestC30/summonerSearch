@@ -4,12 +4,18 @@ import { MatchDTO, RiotRouter } from "./interfaces";
 
 
 export default function useMatchSearch(puuid: string, pageNumber: number, numOfMatches: number, region: string) {
+    /* Calls the backend api to fetch next set of match data to be added. */
 
     const router = getRouter(region)
-    const [matches, setMatches] = useState<any>(null)
+    const [arrayOfMatches, setArrayOfMatches] = useState<[]|MatchDTO[]>([])
+    const [loading, setLoading] = useState(false)
+    //isLoading state can be implemented here.
 
     useEffect(() => {
         //Load match data
+
+        setLoading(true)
+
         async function fetchMatches() {
             /* Call backend API to fetch data without exposing riot api key. */
             const res = await fetch('http://localhost:3000/api/matches', {
@@ -20,13 +26,17 @@ export default function useMatchSearch(puuid: string, pageNumber: number, numOfM
                 }
             }) 
             const data = await res.json()
-            console.log(data)
-            setMatches(data)
+            console.log(`useMatchSearch returned: ${data}`)
+            setArrayOfMatches(prevArrayOfMatches => {
+                return [...prevArrayOfMatches, data]
+            })
+            setLoading(false)
         }
         fetchMatches()
     }, [pageNumber])
 
-    return matches
+    console.log(arrayOfMatches)
+    return { arrayOfMatches, loading }
 }
 
 function getRouter(region: string | string[] | undefined): string {

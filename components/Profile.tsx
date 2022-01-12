@@ -2,13 +2,7 @@ import { Box, Grid, Typography } from "@mui/material"
 import { LeagueData, SummonerDTO } from "../interfaces";
 import PlayerLeague from "./PlayerLeague"
 
-function Profile({
-  summonerData,
-  arrayOfLeaguesData,
-}: {
-  summonerData: SummonerDTO;
-  arrayOfLeaguesData: LeagueData[];
-}) {
+function Profile({summonerData,arrayOfLeaguesData}: {summonerData: SummonerDTO, arrayOfLeaguesData: LeagueData[]}) {
 
   const dataDragonVersion = process.env.dataDragonVersion;
 

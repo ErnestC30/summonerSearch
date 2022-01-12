@@ -54,6 +54,7 @@ export function getSummonerSpellImage(
 
 export function getParticipantItems(participantData: Participant): Array<string> {
   /* Return an array of strings containing item IDs or '0' for no item. */
+  /* NOTE: POSSIBLE ISSUE WITH ORNN ITEMS NOT APPEARING ON DATA DRAGON JSON CAUSES INVALID IMAGE */
   const itemArray = []
   for (let i=0; i<7; i++) {
       itemArray.push(participantData[`item${i}` as keyof Participant].toString())

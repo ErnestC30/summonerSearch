@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { GetServerSideProps } from 'next'
-import { Container } from '@mui/material';
+import { Button, Container } from '@mui/material';
 
 import { RegionContext } from "../../../RegionContext";
 import { MatchDTO, SummonerDTO, RiotRouter, LeagueData } from '../../../interfaces'; 
 import Profile from '../../../components/Profile'
 import Match from '../../../components/Match'
+import MatchesContainer from "../../../components/MatchesContainer";
 import useMatchSearch from "../../../useMatchSearch";
 
 //Sets the number of matches that will be queried from riot API
@@ -15,8 +16,10 @@ const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: 
 
     const [totalArrayOfMatches, setTotalArrayOfMatches] = useState<MatchDTO[]>(arrayOfMatchData)
 
+    /*
     let testMatches = useMatchSearch(summonerData.puuid, 0, NUM_OF_MATCHES, region)
-    console.log(`data returned: ${testMatches?.name}`)
+    console.log(`data returned: ${testMatches[0]}`)
+    */
 
     return (
       <>
@@ -26,7 +29,7 @@ const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: 
               summonerData={summonerData}
               arrayOfLeaguesData={arrayOfLeaguesData}
             />
-            {/* Array of Match comoponents */}
+            {/* Array of Match components */}
             {totalArrayOfMatches.map((match: MatchDTO) => {
               return (
                 <Match
@@ -36,6 +39,7 @@ const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: 
                 ></Match>
               );
             })}
+            <MatchesContainer summonerData={summonerData} region={region}></MatchesContainer>
           </Container>
         </RegionContext.Provider>
       </>
