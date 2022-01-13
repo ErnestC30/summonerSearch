@@ -28,7 +28,7 @@ export default function useMatchSearch(puuid: string, pageNumber: number, numOfM
             const data = await res.json()
             console.log(`useMatchSearch returned: ${data}`)
             setArrayOfMatches(prevArrayOfMatches => {
-                return [...prevArrayOfMatches, data]
+                return [...prevArrayOfMatches, ...data]
             })
             setLoading(false)
         }

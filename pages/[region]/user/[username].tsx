@@ -15,12 +15,7 @@ const NUM_OF_MATCHES = 8
 const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: {summonerData: SummonerDTO, arrayOfMatchData: MatchDTO[], arrayOfLeaguesData: LeagueData[], region: string}) => {
 
     const [totalArrayOfMatches, setTotalArrayOfMatches] = useState<MatchDTO[]>(arrayOfMatchData)
-
-    /*
-    let testMatches = useMatchSearch(summonerData.puuid, 0, NUM_OF_MATCHES, region)
-    console.log(`data returned: ${testMatches[0]}`)
-    */
-
+    
     return (
       <>
         <RegionContext.Provider value={region}>
@@ -30,6 +25,7 @@ const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: 
               arrayOfLeaguesData={arrayOfLeaguesData}
             />
             {/* Array of Match components */}
+            {/* 
             {totalArrayOfMatches.map((match: MatchDTO) => {
               return (
                 <Match
@@ -39,6 +35,7 @@ const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: 
                 ></Match>
               );
             })}
+            */}
             <MatchesContainer summonerData={summonerData} region={region}></MatchesContainer>
           </Container>
         </RegionContext.Provider>
