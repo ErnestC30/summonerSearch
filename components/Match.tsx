@@ -10,10 +10,7 @@ export default function Match({summonerData,matchData}: {summonerData: SummonerD
 
   const dataDragonVersion = process.env.dataDragonVersion
   const gameDuration = getGameTime(matchData.info.gameDuration);
-  const searchedSummonerData: Participant = getSearchedSummonerData(
-    summonerData,
-    matchData.info.participants
-  );
+  const searchedSummonerData: Participant = getSearchedSummonerData(summonerData, matchData.info.participants);
   const searchedSummonerItems: Array<string> = getParticipantItems(searchedSummonerData);
   const teamOneParticipants: Array<Participant> = matchData.info.participants.slice(0, 5);
   const teamTwoParticipants: Array<Participant> = matchData.info.participants.slice(5, 10);
@@ -52,7 +49,7 @@ export default function Match({summonerData,matchData}: {summonerData: SummonerD
                   <img
                     width="50px"
                     height="50px"
-                    src={`http://ddragon.leagueoflegends.com/cdn/${dataDragonVersion}/img/champion/${searchedSummonerData.championName}.png`}
+                    src={`http://ddragon.leagueoflegends.com/cdn/${dataDragonVersion}/img/champion/${getChampionName(searchedSummonerData.championName)}.png`}
                   />
                 </Grid>
               </Grid>
@@ -123,9 +120,7 @@ export default function Match({summonerData,matchData}: {summonerData: SummonerD
                       }}
                     >
                       <img
-                        src={`http://ddragon.leagueoflegends.com/cdn/${dataDragonVersion}/img/champion/${getChampionName(
-                          participant.championName
-                        )}.png`}
+                        src={`http://ddragon.leagueoflegends.com/cdn/${dataDragonVersion}/img/champion/${getChampionName(participant.championName)}.png`}
                         height="20px"
                         width="20px"
                       />
@@ -151,7 +146,7 @@ export default function Match({summonerData,matchData}: {summonerData: SummonerD
                       }}
                     >
                       <img
-                        src={`http://ddragon.leagueoflegends.com/cdn/${dataDragonVersion}/img/champion/${participant.championName}.png`}
+                        src={`http://ddragon.leagueoflegends.com/cdn/${dataDragonVersion}/img/champion/${getChampionName(participant.championName)}.png`}
                         height="20px"
                         width="20px"
                       />

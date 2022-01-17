@@ -1,41 +1,60 @@
 import { MatchDTO, SummonerDTO } from "../interfaces";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback, MutableRefObject } from "react";
 import Match from "./Match";
 import useMatchSearch from "../useMatchSearch";
 
-const numOfMatches = 5
-
 export default function MatchesContainer({summonerData, region} : {summonerData: SummonerDTO, region: string}) {
-  const [pageNumber, setPageNumber] = useState(1); //will need to convert to num?
+  const [pageNumber, setPageNumber] = useState(0); 
+  const puuid = summonerData.puuid
+ 
   const { arrayOfMatches, loading } = useMatchSearch(
-    summonerData.puuid,
+    puuid,
     pageNumber,
-    numOfMatches,
     region
   );
 
-  //load matches based off summonerdata - with useMatchSearch?
-  //display matches using Match component
+  const observer = useRef<IntersectionObserver|null>(null)
+  const lastMatchElementRef = useCallback(node => {
+    if (loading) {return}
+    if (observer.current) {observer.current.disconnect()}
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        setPageNumber(prevPageNum => prevPageNum + 1)
+      }
+    })
+    if (node) {observer.current.observe(node)}
+  }, [loading])
 
-  //'if loading' check needed before rendering matches?
-  console.log(loading)
   return (
     <>
-      {loading && arrayOfMatches.length == 0 ? (
-        <div>Loading</div>
-      ) : (
+      {arrayOfMatches.length > 0 ? (
         <div>
-          {arrayOfMatches.map((match: MatchDTO) => {
+        {arrayOfMatches.map((match: MatchDTO, index: number) => {
+          if (index + 1 == arrayOfMatches.length) {
             return (
-              <Match
+              <div ref={lastMatchElementRef} key={match.metadata.matchId}> 
+                <Match
                 key={match.metadata.matchId}
                 summonerData={summonerData}
                 matchData={match}
               ></Match>
-            );
-          })}
-        </div>
-      )}
+            </div>
+            )
+          }
+          return (
+            <Match
+              key={match.metadata.matchId}
+              summonerData={summonerData}
+              matchData={match}
+            ></Match>
+          );
+        })}
+      </div>
+      ) : (
+        /* Loading Image */
+        <div>Loading...</div>
+      ) 
+      }
     </>
   );
 }

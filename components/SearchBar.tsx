@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Router from 'next/router'
+//import Router from 'next/router'
 import { Box, Button, FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 
 const DEFAULT_REGION = 'NA1'
@@ -101,5 +101,5 @@ function displayRegion(regionId: string, regionMap: Array<Region>): string {
 
 function searchUser(region: string, username: string) {
   /* Redirects to page displaying user information*/
-  Router.push(`/${region}/user/${username}`);
+  window.location.href = `/${region}/user/${username}`;
 }

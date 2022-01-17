@@ -12,13 +12,13 @@ export default async function handler(
   
   //Fetch and returns an array of match data
   if (req.method === 'POST') {
-    console.log('Fetching data from Riot...')
     const riotKey = process.env.RIOT_API
     const {puuid, pageNumber, numOfMatches, region} = req.body
     const router = getRouter(region)
+    const startCount = pageNumber * numOfMatches
 
     //Get an array of matchIds using the user's 'puuid'.
-    const getMatchesIdResponse = await fetch(`https://${router}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=${numOfMatches}&api_key=${riotKey}`)
+    const getMatchesIdResponse = await fetch(`https://${router}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=${startCount}&count=${numOfMatches}&api_key=${riotKey}`)
     const matchesIdData: Array<number> = await getMatchesIdResponse.json()
 
     //Get the detailed match data using the matchId and store into an array.

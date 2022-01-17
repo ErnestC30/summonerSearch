@@ -14,7 +14,9 @@ export function displaySummonerName(name: string, maxLength: number = 8): string
 
 export function getChampionName(championName: string): string {
   /* Returns the refactored champion name if it does not match the data dragon file structure. */
-  /* e.g. some datadragon versions look for FiddleSticks instead of Fiddlesticks */
+  if (championName == "FiddleSticks") { 
+    return 'Fiddlesticks'
+  }
     return championName
   }
   

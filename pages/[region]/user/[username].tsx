@@ -1,20 +1,16 @@
 import React, { useState } from "react";
 import { GetServerSideProps } from 'next'
-import { Button, Container } from '@mui/material';
+import { Container } from '@mui/material';
 
 import { RegionContext } from "../../../RegionContext";
 import { MatchDTO, SummonerDTO, RiotRouter, LeagueData } from '../../../interfaces'; 
 import Profile from '../../../components/Profile'
-import Match from '../../../components/Match'
 import MatchesContainer from "../../../components/MatchesContainer";
-import useMatchSearch from "../../../useMatchSearch";
 
 //Sets the number of matches that will be queried from riot API
 const NUM_OF_MATCHES = 8
 
 const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: {summonerData: SummonerDTO, arrayOfMatchData: MatchDTO[], arrayOfLeaguesData: LeagueData[], region: string}) => {
-
-    const [totalArrayOfMatches, setTotalArrayOfMatches] = useState<MatchDTO[]>(arrayOfMatchData)
     
     return (
       <>
@@ -26,7 +22,7 @@ const UserInfo = ({summonerData, arrayOfMatchData, arrayOfLeaguesData, region}: 
             />
             {/* Array of Match components */}
             {/* 
-            {totalArrayOfMatches.map((match: MatchDTO) => {
+            {arrayOfMatchData.map((match: MatchDTO) => {
               return (
                 <Match
                   key={match.metadata.matchId}
@@ -74,17 +70,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         notFound: true
       }
     }
-    
+
     const summonerId = summonerData.id
     let leaguesResponse = await fetch(`https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${summonerId}?api_key=${riotKey}`)
     let arrayOfLeaguesData = await leaguesResponse.json()
 
-    /* BOTTOM TWO FUNCTIONS REMOVABLE WHEN INFINTE LOADING FINISHED. */
+    /*
 
     //Get the array of matchIds belonging to the user.
     const puuid = summonerData.puuid
     const getMatchesIdResponse = await fetch(`https://${router}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=${NUM_OF_MATCHES}&api_key=${riotKey}`)
     const matchesIdData: Array<number> = await getMatchesIdResponse.json()
+
 
     //Get the match details using the matchId.
     let arrayOfMatchData: MatchDTO[] = []
@@ -94,14 +91,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         arrayOfMatchData.push(matchData)
     }
 
+    */
+
     //console.log(summonerData)
     //console.log(matchesIdData)
     //console.log(arrayOfMatchData[0])
+
+    
     
     return {
         props: {
             summonerData,
-            arrayOfMatchData,
             arrayOfLeaguesData,
             region,
         },
