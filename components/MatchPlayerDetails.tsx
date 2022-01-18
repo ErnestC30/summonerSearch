@@ -16,9 +16,9 @@ export default function MatchPlayerDetails({ participant }: { participant: Parti
   return (
     <>
       <Grid item sx={{ maxHeight: "50px" }}>
-        <Grid container columns={17} spacing={1} alignItems="center">
+        <Grid container columns={18} spacing={1} alignItems="center">
           {/* Participant's champion, summoner spells, and name. */}
-          <Grid item xs={4}>
+          <Grid item xs={5}>
             <Box>
               <Grid container columnSpacing={1} alignItems="center">
                 <Grid item>

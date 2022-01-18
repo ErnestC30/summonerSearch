@@ -6,7 +6,7 @@ import { MatchDTO, RiotRouter } from "./interfaces";
 export default function useMatchSearch(searchedPuuid: string, pageNumber: number, region: string) {
     /* Calls the backend api to fetch next set of match data to be added. */
 
-    const numOfMatches = 10
+    const NUM_OF_MATCHES = 8
     const router = getRouter(region)
     const [arrayOfMatches, setArrayOfMatches] = useState<[]|MatchDTO[]>([])
     const [loading, setLoading] = useState(false)
@@ -19,13 +19,12 @@ export default function useMatchSearch(searchedPuuid: string, pageNumber: number
             /* Call backend API to fetch data without exposing riot api key. */
             const res = await fetch('http://localhost:3000/api/matches', {
                 method: 'POST',
-                body: JSON.stringify({puuid: searchedPuuid, pageNumber: pageNumber, numOfMatches: numOfMatches, region: region }),
+                body: JSON.stringify({puuid: searchedPuuid, pageNumber: pageNumber, numOfMatches: NUM_OF_MATCHES, region: region }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             }) 
             const data = await res.json()
-            //console.log(`useMatchSearch returned: ${data}`)
             setArrayOfMatches(prevArrayOfMatches => {
                 return [...prevArrayOfMatches, ...data]
             })

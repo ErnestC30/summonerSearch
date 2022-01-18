@@ -18,8 +18,8 @@ export default function MatchDetails({matchData, searchedSummonerData}: {matchDa
         <Grid container direction="column">
           <Grid item sx={{padding: '20px'}}>
             {/* Labels */}
-            <Grid container columns={17} justifyContent="space-evenly" alignItems='center' sx={{marginBottom: '10px'}}>
-              <Grid item xs={4} sx={{ display: "flex" }}>
+            <Grid container columns={18} justifyContent="space-evenly" alignItems='center' sx={{marginBottom: '10px'}}>
+              <Grid item xs={5} sx={{ display: "flex" }}>
                 <Typography fontWeight="fontWeightBold">
                   {searchedSummonerData.win ? "Victory" : "Defeat"} -&nbsp;
                 </Typography>
@@ -71,8 +71,8 @@ export default function MatchDetails({matchData, searchedSummonerData}: {matchDa
               </Grid>
             </Grid>
             {/* Labels */}
-            <Grid container columns={17} justifyContent="space-evenly" alignItems='center' sx={{marginTop: '20px' ,marginBottom: '10px'}}>
-              <Grid item xs={4} sx={{ display: "flex" }}>
+            <Grid container columns={18} justifyContent="space-evenly" alignItems='center' sx={{marginTop: '20px' ,marginBottom: '10px'}}>
+              <Grid item xs={5} sx={{ display: "flex" }}>
                 <Typography fontWeight="fontWeightBold">
                   {searchedSummonerData.win ? "Defeat" : "Victory"} -&nbsp;
                 </Typography>

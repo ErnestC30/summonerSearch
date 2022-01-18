@@ -2,7 +2,7 @@
 
 import { MatchDTO, Participant, QueueDisplay, SpellData, SummonerDTO, Team} from '../interfaces'; 
 
-export function displaySummonerName(name: string, maxLength: number = 8): string {
+export function displaySummonerName(name: string, maxLength: number = 7): string {
   /* Displays the user's name, shortening the name if it passes the maxLength */
 
   if (name.length > maxLength) {
