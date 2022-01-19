@@ -1,6 +1,6 @@
 import { Badge, Box, Grid, Link, Typography } from "@mui/material"
-import { useContext } from "react"
 
+import { useContext } from "react"
 import { getChampionName, getParticipantItems, getSummonerSpellImage } from "../utilities/matchFunctions";
 import { RegionContext } from "../RegionContext";
 import { Participant } from "../interfaces";

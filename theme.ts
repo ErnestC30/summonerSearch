@@ -1,6 +1,7 @@
 import { lightBlue, red, green } from '@mui/material/colors';
 import { createTheme, ThemeOptions } from '@mui/material/styles';
 
+//Custom color stylings for match components.
 
 declare module '@mui/material/styles' {
   

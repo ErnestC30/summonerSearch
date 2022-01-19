@@ -1,4 +1,5 @@
 import { Box, Grid, Typography } from "@mui/material"
+
 import { LeagueData, SummonerDTO } from "../interfaces";
 import PlayerLeague from "./PlayerLeague"
 

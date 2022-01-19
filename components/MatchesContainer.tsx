@@ -1,18 +1,12 @@
-import { MatchDTO, SummonerDTO } from "../interfaces";
-import { useEffect, useState, useRef, useCallback } from "react";
-import { CircularProgress, Typography } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 
+import { MatchDTO, SummonerDTO } from "../interfaces";
+import { useState, useRef, useCallback } from "react";
 import Match from "./Match";
 import useMatchSearch from "../useMatchSearch";
 
-export default function MatchesContainer({
-  summonerData,
-  region,
-}: {
-  summonerData: SummonerDTO;
-  region: string;
-}) {
-  /* Container to hold all the matches of the user. */
+export default function MatchesContainer({summonerData, region}: {summonerData: SummonerDTO, region: string}) {
+  /* Container to hold all the matches of the searched user. */
   const [pageNumber, setPageNumber] = useState(0);
   const puuid = summonerData.puuid;
 
@@ -55,7 +49,7 @@ export default function MatchesContainer({
                     key={match.metadata.matchId}
                     summonerData={summonerData}
                     matchData={match}
-                  ></Match>
+                  />
                 </div>
               );
             }
@@ -64,7 +58,7 @@ export default function MatchesContainer({
                 key={match.metadata.matchId}
                 summonerData={summonerData}
                 matchData={match}
-              ></Match>
+              />
             );
           })}
         </div>

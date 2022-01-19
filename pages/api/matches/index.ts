@@ -13,7 +13,7 @@ export default async function handler(
   //Fetch and returns an array of match data
   if (req.method === 'POST') {
     const riotKey = process.env.RIOT_API
-    const {puuid, pageNumber, numOfMatches, region} = req.body
+    const { puuid, pageNumber, numOfMatches, region } = req.body
     const router = getRouter(region)
     const startCount = pageNumber * numOfMatches
 

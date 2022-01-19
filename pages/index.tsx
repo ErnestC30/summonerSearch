@@ -1,7 +1,6 @@
-import type { NextPage } from 'next'
-//separate import statements  into smaller bundles?
-import { Box, Container,Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import React from 'react';
+import type { NextPage } from 'next'
 
 import SearchBar from '../components/SearchBar'
 

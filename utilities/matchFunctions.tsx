@@ -1,9 +1,11 @@
 /* Helper functions related to Match, MatchDetails, MatchPlayerDetails components. */
 
-import { MatchDTO, Participant, QueueDisplay, SpellData, SummonerDTO, Team} from '../interfaces'; 
+import { Participant, QueueDisplay, SpellData, SummonerDTO, Team } from '../interfaces'; 
 
-export function displaySummonerName(name: string, maxLength: number = 7): string {
-  /* Displays the user's name, shortening the name if it passes the maxLength */
+const MAX_NAME_LENGTH = 7
+
+export function displaySummonerName(name: string, maxLength: number = MAX_NAME_LENGTH): string {
+  /* Returns the user's name, shortening the name if it passes the maxLength */
 
   if (name.length > maxLength) {
       return (name.substring(0, maxLength) + '...')
@@ -13,7 +15,8 @@ export function displaySummonerName(name: string, maxLength: number = 7): string
 }
 
 export function getChampionName(championName: string): string {
-  /* Returns the refactored champion name if it does not match the data dragon file structure. */
+  /* Returns the reformatted champion name if it does not match the data dragon file structure. */
+
   if (championName == "FiddleSticks") { 
     return 'Fiddlesticks'
   }
@@ -30,6 +33,7 @@ export function getGameTime(timeInSeconds: number): string {
 
 export function getSearchedSummonerData(summonerData: SummonerDTO, participants: Participant[]): Participant {
   /* Returns the match data of the searched summoner. */
+
   let searchedSummoner = participants.find((participant: Participant) => {
       return participant.puuid == summonerData.puuid
   })
@@ -54,6 +58,7 @@ export function getSummonerSpellImage(
 export function getParticipantItems(participantData: Participant): Array<string> {
   /* Return an array of strings containing item IDs or '0' for no item. */
   /* NOTE: POSSIBLE ISSUE WITH ORNN ITEMS NOT APPEARING ON DATA DRAGON JSON CAUSES INVALID IMAGE */
+
   const itemArray = []
   for (let i=0; i<7; i++) {
       itemArray.push(participantData[`item${i}` as keyof Participant].toString())
@@ -62,7 +67,8 @@ export function getParticipantItems(participantData: Participant): Array<string>
 }
 
 export function getQueueType(queueId: number): string {
-  /* Return a string detailing the type of match based on the queueId*/
+  /* Return a string detailing the type of match based on the queueId */
+
   const stringQueueId = queueId.toString()
   const queueDict: QueueDisplay = {
     '400': 'Normals Draft',
@@ -75,7 +81,7 @@ export function getQueueType(queueId: number): string {
 }
 
 export function getTeamStats(searchedTeamParticipants: Participant[], opponentTeamParticipants: Participant[], teamsData: Team[]) {
-  /* Returns both team statistics to be displayed. */
+  /* Returns both team's statistics to be displayed. */
 
   const userTeamObjectives = teamsData.find((team: Team) => searchedTeamParticipants[0].teamId == team.teamId).objectives
   const opponentTeamObjectives = teamsData.find((team: Team) => opponentTeamParticipants[0].teamId == team.teamId).objectives

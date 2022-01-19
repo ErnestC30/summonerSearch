@@ -1,12 +1,11 @@
-import { GetServerSideProps } from 'next'
 import { Container } from '@mui/material';
+import { GetServerSideProps } from 'next'
 
 import { RegionContext } from "../../../RegionContext";
 import { SummonerDTO, RiotRouter, LeagueData } from '../../../interfaces'; 
 import Profile from '../../../components/Profile'
 import MatchesContainer from "../../../components/MatchesContainer";
 
-//Sets the number of matches that will be queried from riot API
 
 const UserInfo = ({summonerData, arrayOfLeaguesData, region}: {summonerData: SummonerDTO, arrayOfLeaguesData: LeagueData[], region: string}) => {
     
@@ -19,7 +18,7 @@ const UserInfo = ({summonerData, arrayOfLeaguesData, region}: {summonerData: Sum
               arrayOfLeaguesData={arrayOfLeaguesData}
             />
             {/* Container containing the array of matches. */}
-            <MatchesContainer summonerData={summonerData} region={region}></MatchesContainer>
+            <MatchesContainer summonerData={summonerData} region={region} />
           </Container>
         </RegionContext.Provider>
       </>

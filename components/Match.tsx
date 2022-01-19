@@ -1,12 +1,11 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Grid, Typography} from "@mui/material"
 
 import { displaySummonerName, getChampionName, getGameTime, getSearchedSummonerData, getParticipantItems, getQueueType } from "../utilities/matchFunctions";
-import MatchDetails from "./MatchDetails";
 import { MatchDTO, Participant, SummonerDTO } from '../interfaces'; 
-
+import MatchDetails from "./MatchDetails";
 
 export default function Match({summonerData,matchData}: {summonerData: SummonerDTO, matchData: MatchDTO}) {
-  /* Component displaying the summary of the given match data and holds the MatchDetails component.  */
+  /* Component displaying the summary of a given match and also holds the MatchDetails component.  */
 
   const dataDragonVersion = process.env.dataDragonVersion
   const gameDuration = getGameTime(matchData.info.gameDuration);
@@ -79,6 +78,7 @@ export default function Match({summonerData,matchData}: {summonerData: SummonerD
             {/* Items */}
             <Grid item xs={6}>
               <Grid container spacing={0.25}>
+                {/* Renders the item picture or an empty square placeholder. */}
                 {searchedSummonerItems.map((item: string, index: number) => {
                   return item != "0" ? (
                     <Grid item key={index}>

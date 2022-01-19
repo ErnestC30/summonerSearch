@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-//import Router from 'next/router'
 import { Box, Button, FormControl, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
+
+import React, { useState } from 'react'
 
 const DEFAULT_REGION = 'NA1'
 
@@ -10,17 +10,18 @@ interface Region {
 }
 
 function SearchBar({ width, minWidth, addLabel, fieldLabel, buttonSize="medium" }: { width: string, minWidth: string, addLabel: boolean, fieldLabel: string, buttonSize: "small" | "medium" }) {
-  /* Search Bar component to view a user's profile */
+  /* Search Bar component to look up user's profile. */
+
   const [username, setUsername] = useState<string>("");
   const [regionId, setRegionId] = useState<string>(DEFAULT_REGION);
 
   const regionsMap: Array<Region> = [
-    { regionId: "NA1", regionName: "North America" },
-    { regionId: "JP1", regionName: "Japan" },
-    { regionId: "KR", regionName: "Korea" },
+    { regionId: "NA1",  regionName: "North America" },
+    { regionId: "JP1",  regionName: "Japan" },
+    { regionId: "KR",   regionName: "Korea" },
     { regionId: "EUW1", regionName: "Europe West" },
     { regionId: "EUN1", regionName: "Europe North" },
-    { regionId: "BR1", regionName: "Brazil" },
+    { regionId: "BR1",  regionName: "Brazil" },
   ];
 
   function updateName(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
