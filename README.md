@@ -10,7 +10,7 @@ The project currently supports six regions: North America, Brazil, Europe West, 
 
 ![Sample Images](https://github.com/ErnestC30/summonersearch/blob/main/sample_images/SearchBar.PNG)
 
-Searching will redirect to the a new page displaying user's profile including the avatar icon, username, and rendering a component displayinng the user's ranked and 5v5 flex rankings if available. It will also render out a list of the user's recent matches and display the user's stats and a brief match summary. These can be clicked on to reveal a more detailed component showing each participant's stats and other team related objectives. The participant's names can be clicked on to redirect to that participant's page. The profile page also has an infinite scrolling feature where scrolling to the bottom of the page will load more matches.
+Searching a user will redirect to a new page displaying the user's profile, including the avatar icon, username, and rendering a component displaying the user's solo ranked and 5v5 flex rankings if available. It will also render out a list of the user's recent matches and display the user's stats and a brief match summary. These components can be clicked on to reveal a more detailed component showing each participant's stats and other team-related objectives. Each participant's names can also be clicked on to redirect to that participant's page. The profile page also includes an infinite scrolling feature where scrolling to the bottom of the page will load more matches.
 
 **Stack**</br>
 Javascript, Typescript, React, NextJS, MUI 
@@ -26,7 +26,7 @@ Lose Component
 ![Sample Images](https://github.com/ErnestC30/summonersearch/blob/main/sample_images/LoseDetails.PNG)
 
 **How to Use**</br>
-This project requires installation of the modules shown in *next/core/package.json*.</br>
+This project requires installation of the modules shown in *package.json* and *package-lock.json*.</br>
 The project also requires a Riot API key that can be obtained at https://developer.riotgames.com/.</br>
 The Riot API key should be stored in a hidden `.env.local` file 
 Since this project makes use of Riot's hosted Data Dragon for the ingame images, `dataDragonVersion` in the *next.config.js* file must be kept updated as the game patches.
